@@ -19,7 +19,10 @@ const envelopeVideo = document.getElementById('envelope-video');
 // If assets/video/envelope-open.mp4 exists and loads, switch to video mode.
 // Otherwise this silently stays on the vector envelope — no broken UI either way.
 if (envelopeVideo) {
-  const markVideoReady = () => envelope.classList.add('has-video');
+  const markVideoReady = () => {
+    envelope.classList.add('has-video');
+    if (envelopeGate) envelopeGate.classList.add('has-video-mode');
+  };
   if (envelopeVideo.readyState >= 1) {
     // Metadata already loaded before this script ran (fast/cached load) — the
     // 'loadedmetadata' event already fired and would never be caught below.
@@ -59,8 +62,29 @@ function revealSite() {
   }, 1300);
 }
 
+// When the real video finishes, it stays on screen (frozen on its last frame) and
+// becomes the actual hero section, instead of disappearing to reveal a separate one.
+function becomeVideoHero() {
+  if (!envelopeGate || envelopeGate.classList.contains('is-video-hero')) return;
+  envelope.classList.add('is-open');
+  document.body.classList.remove('no-scroll');
+
+  const heroHeader = document.getElementById('top');
+  const heroText = document.querySelector('.hero__text');
+  const heroScroll = document.querySelector('.hero__scroll');
+  if (heroText) envelope.appendChild(heroText);
+  if (heroScroll) envelope.appendChild(heroScroll);
+  if (heroHeader) {
+    heroHeader.style.display = 'none';
+    heroHeader.removeAttribute('id');
+    envelopeGate.id = 'top'; // keep the nav logo's #top anchor working
+  }
+
+  envelopeGate.classList.add('is-video-hero');
+}
+
 if (envelopeVideo) {
-  envelopeVideo.addEventListener('ended', revealSite);
+  envelopeVideo.addEventListener('ended', becomeVideoHero);
 }
 
 function openEnvelope() {

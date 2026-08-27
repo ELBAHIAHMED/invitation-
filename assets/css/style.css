@@ -12,6 +12,9 @@
   --wax: #6f1f2b;
   --wax-deep: #4a141c;
   --wax-light: #8f3244;
+  --champagne: #f6e6d2;
+  --champagne-deep: #f0d7b8;
+  --champagne-text: #9c6b3e;
   --ink: #2e2b23;
   --ink-soft: #6b6455;
   --white: #ffffff;
@@ -108,6 +111,18 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   pointer-events: none;
 }
 
+/* Once the real video finishes, the gate stops being a fixed overlay and becomes
+   the page's actual hero section — the video (frozen on its last frame) stays as
+   the background, with the wedding text fading in on top of it. */
+.envelope-gate.has-video-mode { padding: 0; }
+.envelope-gate.is-video-hero {
+  position: relative;
+  inset: auto;
+  min-height: 100svh;
+  padding: 0;
+  background: var(--ink);
+}
+
 .envelope {
   position: relative;
   width: min(84vw, 340px);
@@ -116,10 +131,12 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   transition: transform 1s cubic-bezier(0.6, 0.05, 0.22, 1);
 }
 .envelope.is-open { transform: scale(1.18); }
+.envelope-gate.is-video-hero .envelope.is-open { transform: none; }
 
 .envelope__vector { position: absolute; inset: 0; }
 
-/* Real video (assets/video/envelope-open.mp4): hidden until it loads successfully. */
+/* Real video (assets/video/envelope-open.mp4): hidden until it loads successfully.
+   Fills the full screen, both before opening and as the hero afterward. */
 .envelope__video {
   display: none;
   position: absolute;
@@ -131,9 +148,62 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   z-index: 2;
   box-shadow: 0 26px 60px rgba(46, 43, 35, 0.18);
 }
+.envelope.has-video {
+  width: 100vw;
+  height: 100svh;
+  max-width: 100vw;
+  aspect-ratio: unset;
+}
 .envelope.has-video .envelope__vector { display: none; }
-.envelope.has-video .envelope__video { display: block; }
-.envelope.has-video.is-open .envelope__video { opacity: 0; transition: opacity 0.5s ease; }
+.envelope.has-video .envelope__video {
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+}
+.envelope.has-video .envelope__cta {
+  color: var(--ivory);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* The relocated hero text/scroll cue, once living inside the video hero. */
+.envelope-gate.is-video-hero .hero__text {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  animation: heroTextFadeIn 1.2s ease 0.3s forwards;
+}
+.envelope-gate.is-video-hero .hero__eyebrow,
+.envelope-gate.is-video-hero .hero__date-line {
+  color: var(--ivory);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+.envelope-gate.is-video-hero .hero__ceremony,
+.envelope-gate.is-video-hero .hero__amp { color: var(--gold-light); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35); }
+.envelope-gate.is-video-hero .hero__names { color: var(--ivory); text-shadow: 0 3px 14px rgba(0, 0, 0, 0.4); }
+.envelope-gate.is-video-hero .hero__of { color: rgba(250, 247, 239, 0.85); }
+.envelope-gate.is-video-hero .hero__of-line { background: var(--ivory); opacity: 0.7; }
+
+.envelope-gate.is-video-hero .hero__scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  opacity: 0;
+  animation: heroTextFadeIn 1.2s ease 0.6s forwards;
+}
+.envelope-gate.is-video-hero .hero__scroll-label,
+.envelope-gate.is-video-hero .hero__scroll-chevron {
+  color: var(--ivory);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+@keyframes heroTextFadeIn { to { opacity: 1; } }
 
 .envelope__base,
 .envelope__pocket-bottom,
@@ -689,9 +759,15 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 }
 
 /* ============ Intro / Bismillah ============ */
-.intro { max-width: 720px; }
+/* Themed to match the champagne/peach palace video (chandelier, curtains, gold) rather
+   than the site's sage-green default, so it flows visually out of the hero video. */
+.intro {
+  max-width: none;
+  background: linear-gradient(180deg, var(--champagne) 0%, var(--ivory) 100%);
+}
+.intro .torn-card { max-width: 720px; margin: 0 auto; }
 .torn-card {
-  background: var(--cream);
+  background: var(--champagne-deep);
   padding: 3rem 2rem;
   clip-path: polygon(
     0% 3%, 5% 0%, 10% 4%, 15% 1%, 20% 5%, 25% 0%, 30% 3%, 35% 1%, 40% 4%, 45% 0%,
@@ -710,7 +786,7 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 .intro__poem {
   font-family: var(--font-script);
   font-size: clamp(1.3rem, 3vw, 1.7rem);
-  color: var(--sage-deep);
+  color: var(--champagne-text);
   line-height: 1.7;
   margin-bottom: 1.8rem;
 }
