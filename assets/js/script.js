@@ -10,6 +10,31 @@ window.addEventListener('load', () => {
   }
 });
 
+// ============ Envelope gate ============
+const envelopeGate = document.getElementById('envelope-gate');
+const envelope = document.getElementById('envelope');
+const envelopeSeal = document.getElementById('envelope-seal');
+
+function openEnvelope() {
+  if (!envelope || envelope.classList.contains('is-open')) return;
+  envelope.classList.add('is-open');
+  document.body.classList.remove('no-scroll');
+  setTimeout(() => envelopeGate && envelopeGate.classList.add('is-open'), 250);
+  setTimeout(() => {
+    if (envelopeGate) envelopeGate.style.display = 'none';
+  }, 1300);
+}
+
+if (envelopeSeal) envelopeSeal.addEventListener('click', openEnvelope);
+if (envelope) {
+  envelope.addEventListener('click', (e) => {
+    if (e.target !== envelopeSeal) openEnvelope();
+  });
+  envelope.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') openEnvelope();
+  });
+}
+
 // ============ Nav: scroll shadow, mobile menu, active link ============
 const nav = document.getElementById('nav');
 const navToggle = document.getElementById('nav-toggle');
