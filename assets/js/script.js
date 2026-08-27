@@ -14,9 +14,41 @@ window.addEventListener('load', () => {
 const envelopeGate = document.getElementById('envelope-gate');
 const envelope = document.getElementById('envelope');
 const envelopeSeal = document.getElementById('envelope-seal');
+const envelopeVideo = document.getElementById('envelope-video');
+
+// If assets/video/envelope-open.mp4 exists and loads, switch to video mode.
+// Otherwise this silently stays on the vector envelope — no broken UI either way.
+if (envelopeVideo) {
+  envelopeVideo.addEventListener('loadedmetadata', () => envelope.classList.add('has-video'), { once: true });
+}
+
+function revealSite() {
+  envelope.classList.add('is-open');
+  document.body.classList.remove('no-scroll');
+  setTimeout(() => envelopeGate && envelopeGate.classList.add('is-open'), 250);
+  setTimeout(() => {
+    if (envelopeGate) envelopeGate.style.display = 'none';
+  }, 1300);
+}
+
+if (envelopeVideo) {
+  envelopeVideo.addEventListener('ended', revealSite);
+}
 
 function openEnvelope() {
-  if (!envelope || envelope.classList.contains('is-glowing')) return;
+  if (!envelope || envelope.classList.contains('is-glowing') || envelope.classList.contains('is-open')) return;
+
+  if (envelope.classList.contains('has-video')) {
+    envelope.classList.add('is-glowing'); // guards against double-triggering while playing
+    envelopeVideo.play().catch(() => {
+      // Autoplay/play blocked — fall back to the vector sequence instead of a dead tap.
+      envelope.classList.remove('has-video', 'is-glowing');
+      openEnvelope();
+    });
+    return; // revealSite() runs on the video's 'ended' event
+  }
+
+  // Vector fallback sequence.
   // Stage 1: the seal glows and light beams from the seam.
   envelope.classList.add('is-glowing');
   // Stage 2: the flap lifts open and the whole card fades to reveal the site.
@@ -38,6 +70,14 @@ if (envelope) {
   envelope.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') openEnvelope();
   });
+}
+
+// ============ Hero photo ============
+// If assets/img/hero-scene.jpg exists and loads, switch from the illustration to the real photo.
+const heroArchWrap = document.getElementById('hero-arch-wrap');
+const heroPhoto = document.getElementById('hero-photo');
+if (heroPhoto && heroArchWrap) {
+  heroPhoto.addEventListener('load', () => heroArchWrap.classList.add('hero-arch-wrap--has-photo'));
 }
 
 // ============ Nav: scroll shadow, mobile menu, active link ============

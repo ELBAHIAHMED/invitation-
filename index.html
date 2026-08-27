@@ -142,20 +142,28 @@
 <!-- ================= ENVELOPE GATE ================= -->
 <div class="envelope-gate" id="envelope-gate">
   <div class="envelope" id="envelope">
-    <svg class="envelope__vine envelope__vine--l" viewBox="0 0 140 700" preserveAspectRatio="none"><use href="#rosevine"/></svg>
-    <svg class="envelope__vine envelope__vine--r" viewBox="0 0 140 700" preserveAspectRatio="none"><use href="#rosevine"/></svg>
+    <!-- Vector fallback: shown by default, hidden automatically if assets/video/envelope-open.mp4 loads. -->
+    <div class="envelope__vector" id="envelope-vector">
+      <svg class="envelope__vine envelope__vine--l" viewBox="0 0 140 700" preserveAspectRatio="none"><use href="#rosevine"/></svg>
+      <svg class="envelope__vine envelope__vine--r" viewBox="0 0 140 700" preserveAspectRatio="none"><use href="#rosevine"/></svg>
 
-    <div class="envelope__base"></div>
-    <div class="envelope__pocket-bottom"></div>
-    <div class="envelope__glow" aria-hidden="true"></div>
-    <div class="envelope__beam" aria-hidden="true"></div>
-    <div class="envelope__flap-top" id="envelope-flap"></div>
+      <div class="envelope__base"></div>
+      <div class="envelope__pocket-bottom"></div>
+      <div class="envelope__glow" aria-hidden="true"></div>
+      <div class="envelope__beam" aria-hidden="true"></div>
+      <div class="envelope__flap-top" id="envelope-flap"></div>
 
-    <button class="envelope__seal" id="envelope-seal" type="button" aria-label="Open the invitation">
-      <span class="envelope__seal-monogram">A<span>&amp;</span>H</span>
-    </button>
+      <button class="envelope__seal" id="envelope-seal" type="button" aria-label="Open the invitation">
+        <span class="envelope__seal-monogram">A<span>&amp;</span>H</span>
+      </button>
+    </div>
 
-    <p class="envelope__cta">Tap to Open<span class="envelope__chevron" aria-hidden="true">&#8963;</span></p>
+    <!-- Real video: drop your generated clip at assets/video/envelope-open.mp4 to replace the vector version above. -->
+    <video class="envelope__video" id="envelope-video" muted playsinline preload="metadata">
+      <source src="assets/video/envelope-open.mp4" type="video/mp4">
+    </video>
+
+    <p class="envelope__cta" id="envelope-cta">Tap to Open<span class="envelope__chevron" aria-hidden="true">&#8963;</span></p>
   </div>
 </div>
 
@@ -178,7 +186,10 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
-  <div class="hero__arch-wrap">
+  <div class="hero__arch-wrap" id="hero-arch-wrap">
+    <!-- Real photo: drop your generated scene at assets/img/hero-scene.jpg to replace the illustration below. -->
+    <img class="hero__photo" id="hero-photo" src="assets/img/hero-scene.jpg" alt="" aria-hidden="true">
+
     <svg class="hero__bouquet hero__bouquet--tl" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
     <svg class="hero__bouquet hero__bouquet--tr" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
     <svg class="hero__bouquet hero__bouquet--bl" viewBox="0 0 160 160"><use href="#bouquet"/></svg>

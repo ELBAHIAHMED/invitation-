@@ -18,11 +18,31 @@ invitation-/
 │   │                            #   lightbox, RSVP handler, add-to-calendar, music toggle
 │   ├── img/
 │   │   ├── favicon.svg         # A&H monogram favicon
+│   │   ├── hero-scene.jpg      # optional real hero photo — see "AI-generated media" below
 │   │   └── (put your real wedding photos here)
+│   ├── video/
+│   │   └── envelope-open.mp4   # optional real envelope-open video — see below
 │   └── audio/
 │       └── (optional background music track — see below)
 └── README.md
 ```
+
+## AI-generated media (envelope video & hero photo)
+
+The envelope-open animation and hero background currently use hand-coded vector art (SVG/CSS) —
+that's what renders by default. The site is also wired to automatically switch to real media the
+moment you add it, no code changes needed:
+
+- Drop a video at **`assets/video/envelope-open.mp4`** (portrait, ~5s, showing the envelope
+  glowing and opening) and it replaces the vector envelope. Tapping it plays the video; the site
+  reveals itself the moment the video ends.
+- Drop a photo at **`assets/img/hero-scene.jpg`** (portrait) and it replaces the illustrated arch
+  scene as the hero background — your existing text (names, date, "Scroll Down") still overlays on
+  top of it.
+
+If either file is missing, the site quietly falls back to the vector version — nothing breaks.
+Ask Claude for ready-to-use prompts for an AI video/image tool (e.g. Kling AI, which has a
+generous free tier) to generate media matching the site's burgundy-wax-seal, golden-hour-arch look.
 
 ## Features
 

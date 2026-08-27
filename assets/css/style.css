@@ -117,6 +117,24 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 }
 .envelope.is-open { transform: scale(1.18); }
 
+.envelope__vector { position: absolute; inset: 0; }
+
+/* Real video (assets/video/envelope-open.mp4): hidden until it loads successfully. */
+.envelope__video {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  z-index: 2;
+  box-shadow: 0 26px 60px rgba(46, 43, 35, 0.18);
+}
+.envelope.has-video .envelope__vector { display: none; }
+.envelope.has-video .envelope__video { display: block; }
+.envelope.has-video.is-open .envelope__video { opacity: 0; transition: opacity 0.5s ease; }
+
 .envelope__base,
 .envelope__pocket-bottom,
 .envelope__flap-top {
@@ -447,9 +465,25 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 .hero__arch-wrap {
   position: relative;
   width: min(88vw, 440px);
+  aspect-ratio: 420 / 700;
   animation: fadeUp 1.2s ease both;
 }
 .hero__arch { width: 100%; height: auto; display: block; }
+
+/* Real hero photo (assets/img/hero-scene.jpg): hidden until it loads successfully. */
+.hero__photo {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  z-index: 0;
+}
+.hero-arch-wrap--has-photo .hero__photo { display: block; }
+.hero-arch-wrap--has-photo .hero__arch,
+.hero-arch-wrap--has-photo .hero__bouquet { display: none; }
 
 .arch__column, .arch__capital {
   fill: var(--ivory-deep);
