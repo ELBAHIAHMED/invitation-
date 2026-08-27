@@ -136,26 +136,81 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   background: linear-gradient(160deg, var(--ivory) 0%, var(--cream) 100%);
   transform-origin: top center;
-  transition: transform 0.9s cubic-bezier(0.6, 0.05, 0.22, 1), opacity 0.7s ease 0.3s;
+  transition: transform 0.9s cubic-bezier(0.6, 0.05, 0.22, 1) 0.55s, opacity 0.7s ease 0.85s, box-shadow 0.6s ease;
+}
+.envelope.is-glowing .envelope__flap-top {
+  box-shadow: 0 0 40px 6px rgba(203, 171, 107, 0.55);
 }
 .envelope.is-open .envelope__flap-top {
   transform: rotateX(-155deg) translateY(-1%);
   opacity: 0;
 }
 
-.envelope__sprig {
+/* Warm light glow that builds behind the seal, then beams out as the flap lifts */
+.envelope__glow {
   position: absolute;
-  width: 30%;
-  height: auto;
-  color: var(--ink-soft);
-  opacity: 0.16;
+  left: 50%;
+  top: 46%;
+  width: 130%;
+  height: 90%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--gold-light) 0%, rgba(203, 171, 107, 0.4) 40%, transparent 70%);
+  filter: blur(18px);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+.envelope.is-glowing .envelope__glow { opacity: 0.85; }
+.envelope.is-open .envelope__glow { opacity: 0; transition: opacity 0.6s ease 0.6s; }
+
+.envelope__beam {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  width: 10%;
+  height: 0%;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--gold-light), transparent 85%);
+  filter: blur(5px);
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 0.5s ease 0.55s, height 0.9s ease 0.55s;
+}
+.envelope.is-glowing .envelope__beam { opacity: 0.9; height: 88%; }
+.envelope.is-open .envelope__beam { opacity: 0; transition: opacity 0.5s ease; }
+
+.envelope__vine {
+  position: absolute;
+  width: 12%;
+  height: 82%;
+  top: 9%;
+  color: var(--sage);
+  opacity: 0.35;
   z-index: 2;
   pointer-events: none;
 }
-.envelope__sprig--tl { top: 4%; left: 4%; transform: rotate(38deg); }
-.envelope__sprig--tr { top: 4%; right: 4%; transform: rotate(-38deg) scaleX(-1); }
-.envelope__sprig--bl { bottom: 4%; left: 4%; transform: rotate(-142deg) scaleX(-1); }
-.envelope__sprig--br { bottom: 4%; right: 4%; transform: rotate(142deg); }
+.envelope__vine--l { left: 6%; }
+.envelope__vine--r { right: 6%; transform: scaleX(-1); }
+
+.envelope__bouquet {
+  position: absolute;
+  width: 44%;
+  height: auto;
+  color: var(--sage);
+  z-index: 2;
+  pointer-events: none;
+}
+.envelope__bouquet--top {
+  top: 6%;
+  left: 50%;
+  z-index: 4;
+  transform: translateX(-50%);
+  transition: opacity 0.5s ease;
+}
+.envelope.is-open .envelope__bouquet--top { opacity: 0; }
+.envelope__bouquet--bottom { bottom: 6%; left: 50%; transform: translateX(-50%) rotate(180deg); }
 
 .envelope__seal {
   position: absolute;
@@ -176,6 +231,10 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 .envelope__seal:hover { transform: translate(-50%, -50%) scale(1.05); }
+.envelope.is-glowing .envelope__seal {
+  box-shadow: 0 0 26px 8px rgba(203, 171, 107, 0.75), 0 8px 18px rgba(46, 43, 35, 0.3), inset 0 2px 3px rgba(255, 255, 255, 0.35);
+  transition: box-shadow 0.9s ease;
+}
 .envelope.is-open .envelope__seal {
   transform: translate(-50%, -50%) scale(0.35) rotate(20deg);
   opacity: 0;
@@ -219,6 +278,13 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 .leaf { fill: currentColor; opacity: 0.85; }
 .leaf__vein { stroke: var(--sage-deep); stroke-width: 0.6; opacity: 0.5; }
 .branch__stem { stroke: currentColor; stroke-width: 1.4; opacity: 0.6; }
+
+.bloom__center { fill: var(--gold-light); }
+.bouquet__leaf { opacity: 0.85; }
+.bouquet__bloom { fill: var(--ivory); opacity: 0.92; }
+.bouquet__bloom--sm { opacity: 0.8; }
+
+.couple__figure { fill: var(--sage-deep); }
 
 /* ============ Decorative petals ============ */
 .petals {
@@ -404,15 +470,43 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 .arch__finial { fill: var(--gold); }
 .arch__finial-line { stroke: var(--gold); stroke-width: 1.5; }
 .arch__vine { color: var(--sage); }
-.arch__water-line { fill: none; stroke: var(--sage-light); stroke-width: 1; opacity: 0.5; }
-.arch__swan {
-  fill: var(--ivory);
-  stroke: var(--sage-deep);
-  stroke-width: 1.5;
+.arch__water-line { fill: none; stroke: var(--gold-light); stroke-width: 1; opacity: 0.5; }
+
+.hero__mosque {
+  color: var(--gold);
+  opacity: 0.55;
 }
-.arch__swan .swan__neck, .arch__swan .swan__wing { stroke: var(--sage-deep); stroke-width: 2; }
-.arch__swan-reflect { fill: var(--sage-light); stroke: none; opacity: 0.25; }
-.arch__swan-reflect .swan__neck, .arch__swan-reflect .swan__wing { stroke: var(--sage-light); stroke-width: 2; }
+.hero__mosque .mosque__wall,
+.hero__mosque .mosque__minaret,
+.hero__mosque .mosque__dome,
+.hero__mosque .mosque__dome-small,
+.hero__mosque .mosque__arch,
+.hero__mosque .mosque__window { fill: var(--ivory); stroke: currentColor; }
+
+.hero__couple { fill: var(--sage-deep); opacity: 0.9; }
+.hero__couple-reflect { fill: var(--sage-deep); opacity: 0.15; }
+
+.hero__lantern { color: var(--gold); }
+.lantern__chain, .lantern__cap, .lantern__body, .lantern__tip, .lantern__rib {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.3;
+}
+.lantern__cap, .lantern__body, .lantern__tip { fill: var(--ivory); opacity: 0.9; }
+.lantern__glow { fill: var(--gold-light); opacity: 0.7; }
+
+.hero__bouquet {
+  position: absolute;
+  width: 22%;
+  height: auto;
+  color: var(--sage);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero__bouquet--tl { top: -2%; left: -6%; }
+.hero__bouquet--tr { top: -2%; right: -6%; transform: scaleX(-1); }
+.hero__bouquet--bl { bottom: -2%; left: -6%; transform: scaleY(-1); }
+.hero__bouquet--br { bottom: -2%; right: -6%; transform: scale(-1, -1); }
 
 .hero__text {
   position: absolute;
@@ -428,14 +522,37 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+.hero__ceremony {
+  font-family: var(--font-script);
+  font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.hero__of {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.9rem;
+}
+.hero__of-line {
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.7;
 }
 .hero__date-line {
   font-family: var(--font-sans);
   font-size: 0.85rem;
   letter-spacing: 0.2em;
   color: var(--gold);
-  margin-bottom: 1.6rem;
+  margin-top: 1rem;
   font-variant-numeric: tabular-nums;
 }
 .hero__names {

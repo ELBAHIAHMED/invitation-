@@ -54,13 +54,6 @@
         <g transform="rotate(300)"><use href="#leaf" width="20" height="26" x="-10" y="-122"/></g>
       </g>
     </symbol>
-    <symbol id="swan" viewBox="0 0 70 76">
-      <ellipse cx="26" cy="54" rx="21" ry="13.5"/>
-      <path d="M20,45 C15,32 21,16 36,9" fill="none" class="swan__neck"/>
-      <circle cx="38" cy="7.5" r="5.2"/>
-      <path d="M42,6 L51,3.5 L43,9.5 Z"/>
-      <path d="M9,50 Q26,42 40,50" fill="none" class="swan__wing"/>
-    </symbol>
     <symbol id="mosque" viewBox="0 0 400 260">
       <rect x="60" y="140" width="280" height="110" class="mosque__wall"/>
       <path d="M140,140 C140,95 260,95 260,140 Z" class="mosque__dome"/>
@@ -80,6 +73,41 @@
       <path d="M280,175 C280,158 300,158 300,175 Z" class="mosque__window"/>
       <line x1="60" y1="140" x2="340" y2="140" class="mosque__ledge"/>
     </symbol>
+    <symbol id="lantern" viewBox="0 0 60 120">
+      <line x1="30" y1="0" x2="30" y2="18" class="lantern__chain"/>
+      <path d="M18,18 L42,18 L42,26 L18,26 Z" class="lantern__cap"/>
+      <path d="M14,26 L46,26 L40,82 L20,82 Z" class="lantern__body"/>
+      <path d="M20,82 L40,82 L30,100 Z" class="lantern__tip"/>
+      <circle cx="30" cy="54" r="9" class="lantern__glow"/>
+      <line x1="20" y1="34" x2="20" y2="74" class="lantern__rib"/>
+      <line x1="40" y1="34" x2="40" y2="74" class="lantern__rib"/>
+    </symbol>
+    <symbol id="bloom" viewBox="0 0 40 40">
+      <circle cx="20" cy="10" r="8"/>
+      <circle cx="20" cy="30" r="8"/>
+      <circle cx="10" cy="20" r="8"/>
+      <circle cx="30" cy="20" r="8"/>
+      <circle cx="13" cy="13" r="8"/>
+      <circle cx="27" cy="13" r="8"/>
+      <circle cx="13" cy="27" r="8"/>
+      <circle cx="27" cy="27" r="8"/>
+      <circle cx="20" cy="20" r="5.5" class="bloom__center"/>
+    </symbol>
+    <symbol id="bouquet" viewBox="0 0 160 160">
+      <use href="#leaf" width="50" height="62" x="8" y="58" transform="rotate(-40 33 89)" class="bouquet__leaf"/>
+      <use href="#leaf" width="40" height="50" x="55" y="16" transform="rotate(12 75 41)" class="bouquet__leaf"/>
+      <use href="#leaf" width="34" height="42" x="92" y="54" transform="rotate(58 109 75)" class="bouquet__leaf"/>
+      <use href="#leaf" width="28" height="35" x="18" y="10" transform="rotate(-72 32 27)" class="bouquet__leaf"/>
+      <use href="#bloom" width="46" height="46" x="16" y="16" class="bouquet__bloom"/>
+      <use href="#bloom" width="32" height="32" x="64" y="44" class="bouquet__bloom bouquet__bloom--sm"/>
+      <use href="#bloom" width="28" height="28" x="28" y="68" class="bouquet__bloom bouquet__bloom--sm"/>
+    </symbol>
+    <symbol id="couple" viewBox="0 0 200 260">
+      <path d="M70,54 C50,54 42,90 40,140 C38,180 42,220 46,250 L94,250 C98,220 102,180 100,140 C98,90 90,54 70,54 Z" class="couple__figure"/>
+      <circle cx="70" cy="40" r="14" class="couple__figure"/>
+      <path d="M140,51 C118,51 108,80 106,110 C102,160 96,210 82,255 L200,255 C190,210 182,150 176,100 C174,75 164,51 140,51 Z" class="couple__figure"/>
+      <circle cx="140" cy="38" r="13" class="couple__figure"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -95,13 +123,15 @@
 <!-- ================= ENVELOPE GATE ================= -->
 <div class="envelope-gate" id="envelope-gate">
   <div class="envelope" id="envelope">
-    <svg class="envelope__sprig envelope__sprig--tl" viewBox="0 0 200 520"><use href="#branch"/></svg>
-    <svg class="envelope__sprig envelope__sprig--tr" viewBox="0 0 200 520"><use href="#branch"/></svg>
-    <svg class="envelope__sprig envelope__sprig--bl" viewBox="0 0 200 520"><use href="#branch"/></svg>
-    <svg class="envelope__sprig envelope__sprig--br" viewBox="0 0 200 520"><use href="#branch"/></svg>
+    <svg class="envelope__vine envelope__vine--l" viewBox="0 0 200 520"><use href="#branch"/></svg>
+    <svg class="envelope__vine envelope__vine--r" viewBox="0 0 200 520"><use href="#branch"/></svg>
+    <svg class="envelope__bouquet envelope__bouquet--top" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
+    <svg class="envelope__bouquet envelope__bouquet--bottom" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
 
     <div class="envelope__base"></div>
     <div class="envelope__pocket-bottom"></div>
+    <div class="envelope__glow" aria-hidden="true"></div>
+    <div class="envelope__beam" aria-hidden="true"></div>
     <div class="envelope__flap-top" id="envelope-flap"></div>
 
     <button class="envelope__seal" id="envelope-seal" type="button" aria-label="Open the invitation">
@@ -132,74 +162,88 @@
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
   <div class="hero__arch-wrap">
-    <svg class="hero__arch" viewBox="0 0 420 640" aria-hidden="true">
+    <svg class="hero__bouquet hero__bouquet--tl" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
+    <svg class="hero__bouquet hero__bouquet--tr" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
+    <svg class="hero__bouquet hero__bouquet--bl" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
+    <svg class="hero__bouquet hero__bouquet--br" viewBox="0 0 160 160"><use href="#bouquet"/></svg>
+
+    <svg class="hero__arch" viewBox="0 0 420 700" aria-hidden="true">
       <defs>
-        <radialGradient id="archGlow" cx="50%" cy="38%" r="60%">
-          <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.35"/>
+        <radialGradient id="archGlow" cx="50%" cy="46%" r="55%">
+          <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.4"/>
           <stop offset="100%" stop-color="var(--gold-light)" stop-opacity="0"/>
         </radialGradient>
-        <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="var(--sage-light)" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="var(--sage-light)" stop-opacity="0.05"/>
+        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="var(--gold-light)" stop-opacity="0.02"/>
         </linearGradient>
       </defs>
 
-      <!-- glow -->
-      <ellipse cx="210" cy="230" rx="180" ry="220" fill="url(#archGlow)"/>
+      <!-- golden-hour glow -->
+      <ellipse cx="210" cy="330" rx="185" ry="270" fill="url(#archGlow)"/>
+
+      <!-- mosque, distant -->
+      <use href="#mosque" width="220" height="143" x="100" y="330" class="hero__mosque"/>
+
+      <!-- couple silhouette -->
+      <use href="#couple" width="128" height="166" x="146" y="452" class="hero__couple"/>
+
+      <!-- ground reflection -->
+      <ellipse cx="210" cy="636" rx="150" ry="14" fill="url(#groundGrad)"/>
+      <ellipse cx="210" cy="636" rx="150" ry="14" class="arch__water-line"/>
+      <use href="#couple" width="128" height="166" x="146" y="636" class="hero__couple-reflect" transform="scale(1,-1) translate(0,-1272)"/>
 
       <!-- columns -->
-      <rect x="55" y="230" width="46" height="360" rx="4" class="arch__column"/>
-      <rect x="319" y="230" width="46" height="360" rx="4" class="arch__column"/>
-      <rect x="46" y="212" width="64" height="16" rx="3" class="arch__capital"/>
-      <rect x="310" y="212" width="64" height="16" rx="3" class="arch__capital"/>
-      <rect x="46" y="580" width="64" height="14" rx="3" class="arch__capital"/>
-      <rect x="310" y="580" width="64" height="14" rx="3" class="arch__capital"/>
+      <rect x="55" y="260" width="46" height="382" rx="4" class="arch__column"/>
+      <rect x="319" y="260" width="46" height="382" rx="4" class="arch__column"/>
+      <rect x="46" y="242" width="64" height="16" rx="3" class="arch__capital"/>
+      <rect x="310" y="242" width="64" height="16" rx="3" class="arch__capital"/>
+      <rect x="46" y="642" width="64" height="14" rx="3" class="arch__capital"/>
+      <rect x="310" y="642" width="64" height="14" rx="3" class="arch__capital"/>
 
       <!-- arch outline (outer + inner) -->
-      <path d="M55,230 Q55,70 210,40 Q365,70 365,230" class="arch__outline"/>
-      <path d="M83,230 Q83,95 210,68 Q337,95 337,230" class="arch__outline arch__outline--inner"/>
+      <path d="M55,260 Q55,90 210,58 Q365,90 365,260" class="arch__outline"/>
+      <path d="M83,260 Q83,115 210,86 Q337,115 337,260" class="arch__outline arch__outline--inner"/>
 
       <!-- finial -->
-      <circle cx="210" cy="30" r="6" class="arch__finial"/>
-      <line x1="210" y1="24" x2="210" y2="6" class="arch__finial-line"/>
+      <circle cx="210" cy="48" r="6" class="arch__finial"/>
+      <line x1="210" y1="42" x2="210" y2="24" class="arch__finial-line"/>
+
+      <!-- hanging lanterns -->
+      <use href="#lantern" width="52" height="104" x="4" y="150" class="hero__lantern"/>
+      <use href="#lantern" width="52" height="104" x="364" y="150" class="hero__lantern" transform="scale(-1,1) translate(-732,0)"/>
 
       <!-- climbing vines -->
       <g class="arch__vine">
-        <use href="#leaf" width="22" height="28" x="52" y="500" transform="rotate(-100 63 514)"/>
-        <use href="#leaf" width="20" height="25" x="58" y="430" transform="rotate(-95 68 442)"/>
-        <use href="#leaf" width="22" height="28" x="50" y="350" transform="rotate(-88 61 364)"/>
-        <use href="#leaf" width="20" height="25" x="56" y="280" transform="rotate(-75 66 292)"/>
-        <use href="#leaf" width="18" height="23" x="66" y="200" transform="rotate(-55 75 211)"/>
-        <use href="#leaf" width="17" height="21" x="100" y="130" transform="rotate(-25 108 140)"/>
-        <use href="#leaf" width="16" height="20" x="150" y="80" transform="rotate(10 158 90)"/>
+        <use href="#leaf" width="22" height="28" x="52" y="560" transform="rotate(-100 63 574)"/>
+        <use href="#leaf" width="20" height="25" x="58" y="480" transform="rotate(-95 68 492)"/>
+        <use href="#leaf" width="22" height="28" x="50" y="400" transform="rotate(-88 61 414)"/>
+        <use href="#leaf" width="20" height="25" x="56" y="330" transform="rotate(-75 66 342)"/>
+        <use href="#leaf" width="18" height="23" x="66" y="240" transform="rotate(-55 75 251)"/>
+        <use href="#leaf" width="17" height="21" x="100" y="160" transform="rotate(-25 108 170)"/>
+        <use href="#leaf" width="16" height="20" x="150" y="100" transform="rotate(10 158 110)"/>
       </g>
       <g class="arch__vine" transform="translate(420,0) scale(-1,1)">
-        <use href="#leaf" width="22" height="28" x="52" y="500" transform="rotate(-100 63 514)"/>
-        <use href="#leaf" width="20" height="25" x="58" y="430" transform="rotate(-95 68 442)"/>
-        <use href="#leaf" width="22" height="28" x="50" y="350" transform="rotate(-88 61 364)"/>
-        <use href="#leaf" width="20" height="25" x="56" y="280" transform="rotate(-75 66 292)"/>
-        <use href="#leaf" width="18" height="23" x="66" y="200" transform="rotate(-55 75 211)"/>
-        <use href="#leaf" width="17" height="21" x="100" y="130" transform="rotate(-25 108 140)"/>
-        <use href="#leaf" width="16" height="20" x="150" y="80" transform="rotate(10 158 90)"/>
+        <use href="#leaf" width="22" height="28" x="52" y="560" transform="rotate(-100 63 574)"/>
+        <use href="#leaf" width="20" height="25" x="58" y="480" transform="rotate(-95 68 492)"/>
+        <use href="#leaf" width="22" height="28" x="50" y="400" transform="rotate(-88 61 414)"/>
+        <use href="#leaf" width="20" height="25" x="56" y="330" transform="rotate(-75 66 342)"/>
+        <use href="#leaf" width="18" height="23" x="66" y="240" transform="rotate(-55 75 251)"/>
+        <use href="#leaf" width="17" height="21" x="100" y="160" transform="rotate(-25 108 170)"/>
+        <use href="#leaf" width="16" height="20" x="150" y="100" transform="rotate(10 158 110)"/>
       </g>
-
-      <!-- lake + swans -->
-      <ellipse cx="210" cy="560" rx="150" ry="16" fill="url(#waterGrad)"/>
-      <ellipse cx="210" cy="560" rx="150" ry="16" class="arch__water-line"/>
-      <use href="#swan" width="62" height="68" x="118" y="510" class="arch__swan"/>
-      <use href="#swan" width="62" height="68" x="220" y="510" class="arch__swan" transform="scale(-1,1) translate(-522,0)"/>
-      <use href="#swan" width="62" height="68" x="118" y="560" class="arch__swan-reflect" transform="scale(1,-1) translate(0,-1198)"/>
-      <use href="#swan" width="62" height="68" x="220" y="560" class="arch__swan-reflect" transform="scale(-1,-1) translate(-522,-1198)"/>
     </svg>
 
     <div class="hero__text">
-      <p class="hero__eyebrow">Wedding Day</p>
-      <p class="hero__date-line">26 &middot; 09 &middot; 2026</p>
+      <p class="hero__eyebrow">Welcome to the</p>
+      <p class="hero__ceremony">Wedding Ceremony</p>
+      <p class="hero__of"><span class="hero__of-line"></span>of<span class="hero__of-line"></span></p>
       <h1 class="hero__names">
         <span>Ahmed</span>
         <span class="hero__amp">&amp;</span>
         <span>Hajar</span>
       </h1>
+      <p class="hero__date-line">26 &middot; 09 &middot; 2026</p>
     </div>
   </div>
 

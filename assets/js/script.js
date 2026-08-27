@@ -16,13 +16,18 @@ const envelope = document.getElementById('envelope');
 const envelopeSeal = document.getElementById('envelope-seal');
 
 function openEnvelope() {
-  if (!envelope || envelope.classList.contains('is-open')) return;
-  envelope.classList.add('is-open');
-  document.body.classList.remove('no-scroll');
-  setTimeout(() => envelopeGate && envelopeGate.classList.add('is-open'), 250);
+  if (!envelope || envelope.classList.contains('is-glowing')) return;
+  // Stage 1: the seal glows and light beams from the seam.
+  envelope.classList.add('is-glowing');
+  // Stage 2: the flap lifts open and the whole card fades to reveal the site.
+  setTimeout(() => {
+    envelope.classList.add('is-open');
+    document.body.classList.remove('no-scroll');
+  }, 900);
+  setTimeout(() => envelopeGate && envelopeGate.classList.add('is-open'), 900 + 250);
   setTimeout(() => {
     if (envelopeGate) envelopeGate.style.display = 'none';
-  }, 1300);
+  }, 900 + 1300);
 }
 
 if (envelopeSeal) envelopeSeal.addEventListener('click', openEnvelope);
