@@ -22,6 +22,27 @@ if (envelopeVideo) {
   envelopeVideo.addEventListener('loadedmetadata', () => envelope.classList.add('has-video'), { once: true });
 }
 
+// Scatter twinkling sparkle particles around the seal, concentrated near the center.
+(function createEnvelopeSparkles() {
+  const container = document.getElementById('envelope-sparkles');
+  if (!container) return;
+  const count = 22;
+  for (let i = 0; i < count; i++) {
+    const sparkle = document.createElement('span');
+    sparkle.className = 'envelope__sparkle';
+    // Bias positions toward the seal at the center, with some drifting further out.
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 8 + Math.random() * Math.random() * 42; // percent from center, weighted inward
+    const left = 50 + Math.cos(angle) * radius;
+    const top = 46 + Math.sin(angle) * radius;
+    sparkle.style.left = left + '%';
+    sparkle.style.top = top + '%';
+    sparkle.style.animationDelay = (Math.random() * 1.6).toFixed(2) + 's';
+    sparkle.style.animationDuration = (1.1 + Math.random() * 0.9).toFixed(2) + 's';
+    container.appendChild(sparkle);
+  }
+})();
+
 function revealSite() {
   envelope.classList.add('is-open');
   document.body.classList.remove('no-scroll');
