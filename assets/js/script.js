@@ -19,7 +19,14 @@ const envelopeVideo = document.getElementById('envelope-video');
 // If assets/video/envelope-open.mp4 exists and loads, switch to video mode.
 // Otherwise this silently stays on the vector envelope — no broken UI either way.
 if (envelopeVideo) {
-  envelopeVideo.addEventListener('loadedmetadata', () => envelope.classList.add('has-video'), { once: true });
+  const markVideoReady = () => envelope.classList.add('has-video');
+  if (envelopeVideo.readyState >= 1) {
+    // Metadata already loaded before this script ran (fast/cached load) — the
+    // 'loadedmetadata' event already fired and would never be caught below.
+    markVideoReady();
+  } else {
+    envelopeVideo.addEventListener('loadedmetadata', markVideoReady, { once: true });
+  }
 }
 
 // Scatter twinkling sparkle particles around the seal, concentrated near the center.
