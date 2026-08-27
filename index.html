@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -19,7 +19,7 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="leaf" viewBox="0 0 40 50">
-      <path d="M20 2 C 33 12 33 38 20 48 C 7 38 7 12 20 2 Z" />
+      <path d="M20 2 C 33 12 33 38 20 48 C 7 38 7 12 20 2 Z" class="leaf" />
       <path d="M20 6 L20 44" class="leaf__vein" fill="none" />
     </symbol>
     <symbol id="branch" viewBox="0 0 200 520">
@@ -53,6 +53,32 @@
         <g transform="rotate(276)"><use href="#leaf" width="22" height="28" x="-11" y="-122"/></g>
         <g transform="rotate(300)"><use href="#leaf" width="20" height="26" x="-10" y="-122"/></g>
       </g>
+    </symbol>
+    <symbol id="swan" viewBox="0 0 70 76">
+      <ellipse cx="26" cy="54" rx="21" ry="13.5"/>
+      <path d="M20,45 C15,32 21,16 36,9" fill="none" class="swan__neck"/>
+      <circle cx="38" cy="7.5" r="5.2"/>
+      <path d="M42,6 L51,3.5 L43,9.5 Z"/>
+      <path d="M9,50 Q26,42 40,50" fill="none" class="swan__wing"/>
+    </symbol>
+    <symbol id="mosque" viewBox="0 0 400 260">
+      <rect x="60" y="140" width="280" height="110" class="mosque__wall"/>
+      <path d="M140,140 C140,95 260,95 260,140 Z" class="mosque__dome"/>
+      <circle cx="200" cy="82" r="5" class="mosque__finial"/>
+      <line x1="200" y1="76" x2="200" y2="60" class="mosque__finial-line"/>
+      <path d="M150,250 C150,205 250,205 250,250 Z" class="mosque__arch"/>
+      <path d="M95,250 L95,60" class="mosque__minaret-line"/>
+      <rect x="86" y="60" width="18" height="190" class="mosque__minaret"/>
+      <path d="M86,60 C86,40 104,40 104,60 Z" class="mosque__dome-small"/>
+      <circle cx="95" cy="34" r="3.4" class="mosque__finial"/>
+      <line x1="95" y1="30" x2="95" y2="18" class="mosque__finial-line"/>
+      <rect x="296" y="60" width="18" height="190" class="mosque__minaret"/>
+      <path d="M296,60 C296,40 314,40 314,60 Z" class="mosque__dome-small"/>
+      <circle cx="305" cy="34" r="3.4" class="mosque__finial"/>
+      <line x1="305" y1="30" x2="305" y2="18" class="mosque__finial-line"/>
+      <path d="M100,175 C100,158 120,158 120,175 Z" class="mosque__window"/>
+      <path d="M280,175 C280,158 300,158 300,175 Z" class="mosque__window"/>
+      <line x1="60" y1="140" x2="340" y2="140" class="mosque__ledge"/>
     </symbol>
   </defs>
 </svg>
@@ -95,7 +121,7 @@
   <div class="nav__links" id="nav-links">
     <a href="#story">Our Story</a>
     <a href="#schedule">Schedule</a>
-    <a href="#details">Venue</a>
+    <a href="#details">Location</a>
     <a href="#gallery">Gallery</a>
     <a href="#registry">Registry</a>
     <a href="#faq">FAQ</a>
@@ -105,35 +131,111 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
-  <svg class="corner-ornament corner-ornament--tl"><use href="#branch"/></svg>
-  <svg class="corner-ornament corner-ornament--tr"><use href="#branch"/></svg>
-  <div class="hero__frame">
-    <p class="hero__eyebrow">Together with their families</p>
-    <h1 class="hero__names">
-      <span>Ahmed</span>
-      <span class="hero__amp">&amp;</span>
-      <span>Hajar</span>
-    </h1>
-    <p class="hero__tagline">request the pleasure of your company<br>as they begin their life together</p>
-    <div class="hero__date">
-      <span>26</span>
-      <span class="hero__date-sep"></span>
-      <span>September</span>
-      <span class="hero__date-sep"></span>
-      <span>2026</span>
+  <div class="hero__arch-wrap">
+    <svg class="hero__arch" viewBox="0 0 420 640" aria-hidden="true">
+      <defs>
+        <radialGradient id="archGlow" cx="50%" cy="38%" r="60%">
+          <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="var(--gold-light)" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--sage-light)" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="var(--sage-light)" stop-opacity="0.05"/>
+        </linearGradient>
+      </defs>
+
+      <!-- glow -->
+      <ellipse cx="210" cy="230" rx="180" ry="220" fill="url(#archGlow)"/>
+
+      <!-- columns -->
+      <rect x="55" y="230" width="46" height="360" rx="4" class="arch__column"/>
+      <rect x="319" y="230" width="46" height="360" rx="4" class="arch__column"/>
+      <rect x="46" y="212" width="64" height="16" rx="3" class="arch__capital"/>
+      <rect x="310" y="212" width="64" height="16" rx="3" class="arch__capital"/>
+      <rect x="46" y="580" width="64" height="14" rx="3" class="arch__capital"/>
+      <rect x="310" y="580" width="64" height="14" rx="3" class="arch__capital"/>
+
+      <!-- arch outline (outer + inner) -->
+      <path d="M55,230 Q55,70 210,40 Q365,70 365,230" class="arch__outline"/>
+      <path d="M83,230 Q83,95 210,68 Q337,95 337,230" class="arch__outline arch__outline--inner"/>
+
+      <!-- finial -->
+      <circle cx="210" cy="30" r="6" class="arch__finial"/>
+      <line x1="210" y1="24" x2="210" y2="6" class="arch__finial-line"/>
+
+      <!-- climbing vines -->
+      <g class="arch__vine">
+        <use href="#leaf" width="22" height="28" x="52" y="500" transform="rotate(-100 63 514)"/>
+        <use href="#leaf" width="20" height="25" x="58" y="430" transform="rotate(-95 68 442)"/>
+        <use href="#leaf" width="22" height="28" x="50" y="350" transform="rotate(-88 61 364)"/>
+        <use href="#leaf" width="20" height="25" x="56" y="280" transform="rotate(-75 66 292)"/>
+        <use href="#leaf" width="18" height="23" x="66" y="200" transform="rotate(-55 75 211)"/>
+        <use href="#leaf" width="17" height="21" x="100" y="130" transform="rotate(-25 108 140)"/>
+        <use href="#leaf" width="16" height="20" x="150" y="80" transform="rotate(10 158 90)"/>
+      </g>
+      <g class="arch__vine" transform="translate(420,0) scale(-1,1)">
+        <use href="#leaf" width="22" height="28" x="52" y="500" transform="rotate(-100 63 514)"/>
+        <use href="#leaf" width="20" height="25" x="58" y="430" transform="rotate(-95 68 442)"/>
+        <use href="#leaf" width="22" height="28" x="50" y="350" transform="rotate(-88 61 364)"/>
+        <use href="#leaf" width="20" height="25" x="56" y="280" transform="rotate(-75 66 292)"/>
+        <use href="#leaf" width="18" height="23" x="66" y="200" transform="rotate(-55 75 211)"/>
+        <use href="#leaf" width="17" height="21" x="100" y="130" transform="rotate(-25 108 140)"/>
+        <use href="#leaf" width="16" height="20" x="150" y="80" transform="rotate(10 158 90)"/>
+      </g>
+
+      <!-- lake + swans -->
+      <ellipse cx="210" cy="560" rx="150" ry="16" fill="url(#waterGrad)"/>
+      <ellipse cx="210" cy="560" rx="150" ry="16" class="arch__water-line"/>
+      <use href="#swan" width="62" height="68" x="118" y="510" class="arch__swan"/>
+      <use href="#swan" width="62" height="68" x="220" y="510" class="arch__swan" transform="scale(-1,1) translate(-522,0)"/>
+      <use href="#swan" width="62" height="68" x="118" y="560" class="arch__swan-reflect" transform="scale(1,-1) translate(0,-1198)"/>
+      <use href="#swan" width="62" height="68" x="220" y="560" class="arch__swan-reflect" transform="scale(-1,-1) translate(-522,-1198)"/>
+    </svg>
+
+    <div class="hero__text">
+      <p class="hero__eyebrow">Wedding Day</p>
+      <p class="hero__date-line">26 &middot; 09 &middot; 2026</p>
+      <h1 class="hero__names">
+        <span>Ahmed</span>
+        <span class="hero__amp">&amp;</span>
+        <span>Hajar</span>
+      </h1>
     </div>
-    <a href="#details" class="btn btn--ghost hero__cta">View Invitation</a>
   </div>
-  <div class="hero__scroll" aria-hidden="true"><span></span></div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-label">Scroll Down</span>
+    <span class="hero__scroll-chevron">&#8964;</span>
+  </div>
 </header>
+
+<!-- ================= INTRO / BISMILLAH ================= -->
+<section class="section intro reveal">
+  <div class="torn-card">
+    <p class="intro__bismillah" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <p class="intro__poem">
+      Two Souls, One Journey<br>
+      A Union Written in Destiny<br>
+      Blessed by Allah, Witnessed by Love
+    </p>
+    <p class="intro__message">
+      Dear Family &amp; Friends,<br>
+      We joyfully invite you to share in an evening of love, laughter,
+      heartfelt duas, and cherished memories as we begin our life together.
+    </p>
+  </div>
+</section>
 
 <!-- ================= COUNTDOWN ================= -->
 <section class="section countdown" id="countdown">
-  <p class="section__eyebrow">The Big Day Is Coming</p>
+  <p class="section__eyebrow">The Celebration Begins In</p>
   <div class="countdown__grid" id="countdown-timer">
     <div class="countdown__unit"><span class="countdown__value" id="cd-days">00</span><span class="countdown__label">Days</span></div>
+    <span class="countdown__colon">:</span>
     <div class="countdown__unit"><span class="countdown__value" id="cd-hours">00</span><span class="countdown__label">Hours</span></div>
+    <span class="countdown__colon">:</span>
     <div class="countdown__unit"><span class="countdown__value" id="cd-minutes">00</span><span class="countdown__label">Minutes</span></div>
+    <span class="countdown__colon">:</span>
     <div class="countdown__unit"><span class="countdown__value" id="cd-seconds">00</span><span class="countdown__label">Seconds</span></div>
   </div>
 </section>
@@ -211,8 +313,9 @@
 
 <!-- ================= DETAILS / VENUE ================= -->
 <section class="section details" id="details">
-  <p class="section__eyebrow">Wedding Details</p>
+  <p class="section__eyebrow">Location</p>
   <h2 class="section__title">When &amp; Where</h2>
+  <svg class="mosque-illustration" viewBox="0 0 400 260" aria-hidden="true"><use href="#mosque"/></svg>
 
   <div class="details__grid">
     <div class="detail-card reveal">

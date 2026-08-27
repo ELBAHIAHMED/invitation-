@@ -215,24 +215,10 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 }
 
 /* ============ Botanical ornaments ============ */
-.leaf { fill: var(--sage); opacity: 0.85; }
+/* .leaf / .branch__stem use currentColor so each context tints via its own `color`. */
+.leaf { fill: currentColor; opacity: 0.85; }
 .leaf__vein { stroke: var(--sage-deep); stroke-width: 0.6; opacity: 0.5; }
-.branch__stem { stroke: var(--sage-deep); stroke-width: 1.4; opacity: 0.6; }
-
-.corner-ornament {
-  position: absolute;
-  width: 90px;
-  height: auto;
-  color: var(--sage);
-  opacity: 0.55;
-  pointer-events: none;
-  z-index: 1;
-}
-.corner-ornament--tl { top: -10px; left: -10px; }
-.corner-ornament--tr { top: -10px; right: -10px; transform: scaleX(-1); }
-@media (min-width: 700px) {
-  .corner-ornament { width: 130px; }
-}
+.branch__stem { stroke: currentColor; stroke-width: 1.4; opacity: 0.6; }
 
 /* ============ Decorative petals ============ */
 .petals {
@@ -395,87 +381,150 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   border: 1px solid rgba(166,129,60,0.35);
   pointer-events: none;
 }
-.hero__frame {
-  max-width: 640px;
-  animation: fadeUp 1.2s ease both;
+.hero__arch-wrap {
   position: relative;
+  width: min(88vw, 440px);
+  animation: fadeUp 1.2s ease both;
+}
+.hero__arch { width: 100%; height: auto; display: block; }
+
+.arch__column, .arch__capital {
+  fill: var(--ivory-deep);
+  stroke: var(--gold);
+  stroke-width: 1.2;
+  opacity: 0.9;
+}
+.arch__outline {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2;
+  opacity: 0.85;
+}
+.arch__outline--inner { stroke-width: 1.2; opacity: 0.55; }
+.arch__finial { fill: var(--gold); }
+.arch__finial-line { stroke: var(--gold); stroke-width: 1.5; }
+.arch__vine { color: var(--sage); }
+.arch__water-line { fill: none; stroke: var(--sage-light); stroke-width: 1; opacity: 0.5; }
+.arch__swan {
+  fill: var(--ivory);
+  stroke: var(--sage-deep);
+  stroke-width: 1.5;
+}
+.arch__swan .swan__neck, .arch__swan .swan__wing { stroke: var(--sage-deep); stroke-width: 2; }
+.arch__swan-reflect { fill: var(--sage-light); stroke: none; opacity: 0.25; }
+.arch__swan-reflect .swan__neck, .arch__swan-reflect .swan__wing { stroke: var(--sage-light); stroke-width: 2; }
+
+.hero__text {
+  position: absolute;
+  top: 8%;
+  left: 0;
+  right: 0;
+  text-align: center;
   z-index: 2;
 }
 .hero__eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.hero__date-line {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 1.6rem;
+  font-variant-numeric: tabular-nums;
 }
 .hero__names {
   font-family: var(--font-script);
-  font-size: clamp(3.2rem, 10vw, 6.5rem);
+  font-size: clamp(2.6rem, 9vw, 4.2rem);
   color: var(--sage-deep);
-  line-height: 1;
+  line-height: 1.05;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+  gap: 0;
 }
 .hero__amp {
   font-family: var(--font-display);
   font-style: italic;
   color: var(--gold);
-  font-size: 0.5em;
-  align-self: center;
+  font-size: 0.45em;
+  margin: 0.1em 0;
 }
-.hero__tagline {
-  margin-top: 1.5rem;
-  font-size: 1.05rem;
-  font-style: italic;
-  color: var(--ink-soft);
-  line-height: 1.6;
-}
-.hero__date {
-  margin: 2.2rem 0;
-  font-family: var(--font-sans);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  color: var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-}
-.hero__date-sep {
-  width: 6px;
-  height: 6px;
-  background: var(--blush);
-  border-radius: 50%;
-}
-.hero__cta { margin-top: 0.5rem; }
 
 .hero__scroll {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
   z-index: 2;
 }
-.hero__scroll span {
-  display: block;
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(var(--gold), transparent);
-  animation: scrollLine 2s ease-in-out infinite;
+.hero__scroll-label {
+  font-family: var(--font-script);
+  font-size: 1.1rem;
+  color: var(--gold);
 }
-@keyframes scrollLine {
-  0%, 100% { transform: scaleY(0.4); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
+.hero__scroll-chevron {
+  color: var(--gold);
+  font-size: 1rem;
+  animation: chevronBounce 1.6s ease-in-out infinite;
 }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ============ Intro / Bismillah ============ */
+.intro { max-width: 720px; }
+.torn-card {
+  background: var(--cream);
+  padding: 3rem 2rem;
+  clip-path: polygon(
+    0% 3%, 5% 0%, 10% 4%, 15% 1%, 20% 5%, 25% 0%, 30% 3%, 35% 1%, 40% 4%, 45% 0%,
+    50% 3%, 55% 1%, 60% 4%, 65% 0%, 70% 3%, 75% 1%, 80% 4%, 85% 0%, 90% 3%, 95% 1%, 100% 3%,
+    100% 97%, 95% 100%, 90% 96%, 85% 99%, 80% 95%, 75% 100%, 70% 97%, 65% 99%, 60% 96%, 55% 100%,
+    50% 97%, 45% 99%, 40% 96%, 35% 100%, 30% 97%, 25% 99%, 20% 96%, 15% 100%, 10% 97%, 5% 99%, 0% 97%
+  );
+}
+.intro__bismillah {
+  font-family: var(--font-script), 'Amiri', serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--gold);
+  margin-bottom: 1.8rem;
+}
+.intro__bismillah[lang="ar"] { font-family: 'Amiri', serif; }
+.intro__poem {
+  font-family: var(--font-script);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  color: var(--sage-deep);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+.intro__message {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+/* ============ Mosque illustration ============ */
+.mosque-illustration {
+  width: min(60vw, 220px);
+  height: auto;
+  margin: 0 auto 2.5rem;
+  color: var(--sage-deep);
+  display: block;
+}
+.mosque__wall, .mosque__minaret { fill: var(--ivory-deep); stroke: var(--gold); stroke-width: 1.4; }
+.mosque__dome, .mosque__dome-small, .mosque__arch, .mosque__window { fill: var(--ivory-deep); stroke: var(--gold); stroke-width: 1.4; }
+.mosque__finial { fill: var(--gold); }
+.mosque__finial-line, .mosque__minaret-line, .mosque__ledge { stroke: var(--gold); stroke-width: 1.2; }
 
 /* ============ Sections (shared) ============ */
 .section {
@@ -547,6 +596,14 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(250,247,239,0.65);
+}
+.countdown__colon {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--gold-light);
+  opacity: 0.6;
+  align-self: flex-start;
+  margin-top: 0.1em;
 }
 
 /* ============ Story ============ */
