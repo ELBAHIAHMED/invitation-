@@ -2,6 +2,114 @@
 // Edit this to change the countdown / calendar target.
 const WEDDING_DATE = new Date('2026-09-26T16:00:00');
 
+// ============ Preloader ============
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    setTimeout(() => preloader.classList.add('is-hidden'), 500);
+  }
+});
+
+// ============ Nav: scroll shadow, mobile menu, active link ============
+const nav = document.getElementById('nav');
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.getElementById('nav-links');
+
+if (nav) {
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+const navSectionLinks = navLinks ? [...navLinks.querySelectorAll('a[href^="#"]')] : [];
+const navSections = navSectionLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if ('IntersectionObserver' in window && navSections.length) {
+  const navObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          navSectionLinks.forEach((link) =>
+            link.classList.toggle('is-active', link.getAttribute('href') === id)
+          );
+        }
+      });
+    },
+    { rootMargin: '-45% 0px -45% 0px' }
+  );
+  navSections.forEach((section) => navObserver.observe(section));
+}
+
+// ============ FAQ accordion ============
+document.querySelectorAll('.accordion__trigger').forEach((trigger) => {
+  trigger.addEventListener('click', () => {
+    const item = trigger.closest('.accordion__item');
+    const wasOpen = item.classList.contains('is-open');
+    item.parentElement.querySelectorAll('.accordion__item').forEach((el) =>
+      el.classList.remove('is-open')
+    );
+    if (!wasOpen) item.classList.add('is-open');
+  });
+});
+
+// ============ Gallery lightbox ============
+const lightbox = document.getElementById('lightbox');
+const lightboxFrame = document.getElementById('lightbox-frame');
+const lightboxClose = document.getElementById('lightbox-close');
+
+document.querySelectorAll('.gallery__item').forEach((item) => {
+  item.addEventListener('click', () => {
+    if (!lightbox) return;
+    lightboxFrame.style.background = getComputedStyle(item).background;
+    lightbox.hidden = false;
+  });
+});
+if (lightboxClose) {
+  lightboxClose.addEventListener('click', () => (lightbox.hidden = true));
+}
+if (lightbox) {
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.hidden = true;
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.hidden = true;
+  });
+}
+
+// ============ Background music toggle ============
+const musicToggle = document.getElementById('music-toggle');
+const bgMusic = document.getElementById('bg-music');
+if (musicToggle && bgMusic) {
+  musicToggle.addEventListener('click', () => {
+    const isPlaying = musicToggle.getAttribute('aria-pressed') === 'true';
+    if (isPlaying) {
+      bgMusic.pause();
+      musicToggle.setAttribute('aria-pressed', 'false');
+    } else {
+      bgMusic.play().catch(() => {
+        // No audio file provided yet — see README to add your own track.
+      });
+      musicToggle.setAttribute('aria-pressed', 'true');
+    }
+  });
+}
+
 // ============ Countdown ============
 function updateCountdown() {
   const now = new Date();

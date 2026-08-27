@@ -5,19 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ahmed &amp; Hajar | We're Getting Married</title>
 <meta name="description" content="Join Ahmed and Hajar as they celebrate their wedding on September 26, 2026.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
+<!-- ================= BOTANICAL SVG SPRITE ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="leaf" viewBox="0 0 40 50">
+      <path d="M20 2 C 33 12 33 38 20 48 C 7 38 7 12 20 2 Z" />
+      <path d="M20 6 L20 44" class="leaf__vein" fill="none" />
+    </symbol>
+    <symbol id="branch" viewBox="0 0 200 520">
+      <path class="branch__stem" d="M100 6 C 90 140 112 320 96 512" fill="none" />
+      <use href="#leaf" width="26" height="33" transform="translate(100 40) rotate(-135)"/>
+      <use href="#leaf" width="30" height="38" transform="translate(102 95) rotate(50)"/>
+      <use href="#leaf" width="26" height="33" transform="translate(96 95) rotate(-130)"/>
+      <use href="#leaf" width="34" height="42" transform="translate(107 165) rotate(55)"/>
+      <use href="#leaf" width="30" height="38" transform="translate(90 165) rotate(-125)"/>
+      <use href="#leaf" width="36" height="45" transform="translate(112 245) rotate(60)"/>
+      <use href="#leaf" width="32" height="40" transform="translate(84 245) rotate(-120)"/>
+      <use href="#leaf" width="38" height="47" transform="translate(115 330) rotate(58)"/>
+      <use href="#leaf" width="34" height="42" transform="translate(80 330) rotate(-122)"/>
+      <use href="#leaf" width="34" height="42" transform="translate(110 410) rotate(52)"/>
+      <use href="#leaf" width="30" height="38" transform="translate(84 410) rotate(-128)"/>
+      <use href="#leaf" width="26" height="33" transform="translate(100 480) rotate(45)"/>
+      <use href="#leaf" width="24" height="30" transform="translate(92 480) rotate(-135)"/>
+    </symbol>
+    <symbol id="wreath" viewBox="0 0 300 300">
+      <g transform="translate(150 150)">
+        <g transform="rotate(0)"><use href="#leaf" width="20" height="26" x="-10" y="-138"/></g>
+        <g transform="rotate(24)"><use href="#leaf" width="22" height="28" x="-11" y="-134"/></g>
+        <g transform="rotate(48)"><use href="#leaf" width="24" height="30" x="-12" y="-128"/></g>
+        <g transform="rotate(72)"><use href="#leaf" width="24" height="30" x="-12" y="-124"/></g>
+        <g transform="rotate(96)"><use href="#leaf" width="22" height="28" x="-11" y="-122"/></g>
+        <g transform="rotate(120)"><use href="#leaf" width="20" height="26" x="-10" y="-122"/></g>
+        <g transform="rotate(180)"><use href="#leaf" width="20" height="26" x="-10" y="-138"/></g>
+        <g transform="rotate(204)"><use href="#leaf" width="22" height="28" x="-11" y="-134"/></g>
+        <g transform="rotate(228)"><use href="#leaf" width="24" height="30" x="-12" y="-128"/></g>
+        <g transform="rotate(252)"><use href="#leaf" width="24" height="30" x="-12" y="-124"/></g>
+        <g transform="rotate(276)"><use href="#leaf" width="22" height="28" x="-11" y="-122"/></g>
+        <g transform="rotate(300)"><use href="#leaf" width="20" height="26" x="-10" y="-122"/></g>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= PRELOADER ================= -->
+<div class="preloader" id="preloader">
+  <svg class="preloader__wreath" viewBox="0 0 300 300"><use href="#wreath"/></svg>
+  <p class="preloader__monogram">A<span>&amp;</span>H</p>
+  <p class="preloader__label">loading our invitation&hellip;</p>
+</div>
+
 <div class="petals" aria-hidden="true"></div>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav__logo">A<span>&amp;</span>H</a>
+  <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav__links" id="nav-links">
+    <a href="#story">Our Story</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#details">Venue</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#registry">Registry</a>
+    <a href="#faq">FAQ</a>
+    <a href="#rsvp" class="nav__cta">RSVP</a>
+  </div>
+</nav>
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
+  <svg class="corner-ornament corner-ornament--tl"><use href="#branch"/></svg>
+  <svg class="corner-ornament corner-ornament--tr"><use href="#branch"/></svg>
   <div class="hero__frame">
     <p class="hero__eyebrow">Together with their families</p>
     <h1 class="hero__names">
@@ -50,7 +119,7 @@
 </section>
 
 <!-- ================= OUR STORY ================= -->
-<section class="section story reveal">
+<section class="section story reveal" id="story">
   <p class="section__eyebrow">Our Story</p>
   <h2 class="section__title">A Love Written in Time</h2>
   <p class="story__text">
@@ -79,7 +148,48 @@
   </div>
 </section>
 
-<!-- ================= DETAILS ================= -->
+<!-- ================= SCHEDULE ================= -->
+<section class="section schedule reveal" id="schedule">
+  <p class="section__eyebrow">Order of the Day</p>
+  <h2 class="section__title">Wedding Day Schedule</h2>
+
+  <div class="agenda">
+    <div class="agenda__item">
+      <span class="agenda__time">4:00 PM</span>
+      <span class="agenda__dot" aria-hidden="true"></span>
+      <div class="agenda__body">
+        <h3>Ceremony</h3>
+        <p>Exchange of vows beneath the garden arch.</p>
+      </div>
+    </div>
+    <div class="agenda__item">
+      <span class="agenda__time">5:30 PM</span>
+      <span class="agenda__dot" aria-hidden="true"></span>
+      <div class="agenda__body">
+        <h3>Cocktail Hour</h3>
+        <p>Drinks, canap&eacute;s, and photographs among the roses.</p>
+      </div>
+    </div>
+    <div class="agenda__item">
+      <span class="agenda__time">7:00 PM</span>
+      <span class="agenda__dot" aria-hidden="true"></span>
+      <div class="agenda__body">
+        <h3>Reception</h3>
+        <p>Dinner and toasts under the string-lit pavilion.</p>
+      </div>
+    </div>
+    <div class="agenda__item">
+      <span class="agenda__time">9:00 PM</span>
+      <span class="agenda__dot" aria-hidden="true"></span>
+      <div class="agenda__body">
+        <h3>Dancing &amp; Celebration</h3>
+        <p>The night continues under the stars &mdash; join us on the floor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DETAILS / VENUE ================= -->
 <section class="section details" id="details">
   <p class="section__eyebrow">Wedding Details</p>
   <h2 class="section__title">When &amp; Where</h2>
@@ -102,24 +212,127 @@
     </div>
   </div>
 
+  <div class="map-frame reveal">
+    <iframe
+      title="Wedding venue map"
+      src="https://www.google.com/maps?q=Venue+Name,+City,+Country&output=embed"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
   <div class="details__calendar reveal">
     <a href="#" id="add-to-calendar" class="btn btn--solid">Add to Calendar</a>
   </div>
 </section>
 
+<!-- ================= TRAVEL & STAY ================= -->
+<section class="section travel reveal" id="travel">
+  <p class="section__eyebrow">Travel &amp; Accommodation</p>
+  <h2 class="section__title">Getting There &amp; Staying Over</h2>
+  <div class="travel__grid">
+    <div class="travel-card">
+      <span class="travel-card__icon">🏨</span>
+      <h3>Garden Hotel &amp; Suites</h3>
+      <p>A short walk from the venue &mdash; ask for the Ahmed &amp; Hajar wedding block rate.</p>
+      <a class="detail-card__link" href="#" target="_blank" rel="noopener">Book a Room</a>
+    </div>
+    <div class="travel-card">
+      <span class="travel-card__icon">✈️</span>
+      <h3>Nearest Airport</h3>
+      <p>City International Airport &mdash; approximately 30 minutes from the venue.</p>
+    </div>
+    <div class="travel-card">
+      <span class="travel-card__icon">🚗</span>
+      <h3>Parking &amp; Shuttle</h3>
+      <p>Complimentary on-site parking, with a shuttle running between the hotel and venue.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= GALLERY ================= -->
-<section class="section gallery reveal">
+<section class="section gallery reveal" id="gallery">
   <p class="section__eyebrow">Moments</p>
   <h2 class="section__title">Our Gallery</h2>
-  <div class="gallery__grid">
-    <div class="gallery__item"></div>
-    <div class="gallery__item"></div>
-    <div class="gallery__item"></div>
-    <div class="gallery__item"></div>
-    <div class="gallery__item"></div>
-    <div class="gallery__item"></div>
+  <div class="gallery__grid" id="gallery-grid">
+    <button class="gallery__item" type="button" aria-label="View photo 1"></button>
+    <button class="gallery__item" type="button" aria-label="View photo 2"></button>
+    <button class="gallery__item" type="button" aria-label="View photo 3"></button>
+    <button class="gallery__item" type="button" aria-label="View photo 4"></button>
+    <button class="gallery__item" type="button" aria-label="View photo 5"></button>
+    <button class="gallery__item" type="button" aria-label="View photo 6"></button>
   </div>
   <p class="gallery__note">Add your favorite photos to <code>assets/img/</code> and reference them here.</p>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox__close" id="lightbox-close" aria-label="Close">&times;</button>
+  <div class="lightbox__frame" id="lightbox-frame"></div>
+</div>
+
+<!-- ================= REGISTRY ================= -->
+<section class="section registry reveal" id="registry">
+  <p class="section__eyebrow">With Love</p>
+  <h2 class="section__title">Gift Registry</h2>
+  <p class="registry__note">Your presence is the greatest gift of all. For those who wish to give more, we've set up a few options below.</p>
+  <div class="registry__grid">
+    <div class="travel-card">
+      <span class="travel-card__icon">🎁</span>
+      <h3>Gift Registry</h3>
+      <p>Browse our curated list for the new home.</p>
+      <a class="detail-card__link" href="#" target="_blank" rel="noopener">View Registry</a>
+    </div>
+    <div class="travel-card">
+      <span class="travel-card__icon">🌍</span>
+      <h3>Honeymoon Fund</h3>
+      <p>Help send us off on our first adventure together.</p>
+      <a class="detail-card__link" href="#" target="_blank" rel="noopener">Contribute</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section faq reveal" id="faq">
+  <p class="section__eyebrow">Good to Know</p>
+  <h2 class="section__title">Frequently Asked Questions</h2>
+  <div class="accordion">
+    <div class="accordion__item">
+      <button class="accordion__trigger" type="button">
+        <span>What should I wear?</span>
+        <span class="accordion__icon">+</span>
+      </button>
+      <div class="accordion__panel"><p>Garden formal attire. Soft, earthy tones are welcome &mdash; and comfortable shoes, as the ceremony is on grass.</p></div>
+    </div>
+    <div class="accordion__item">
+      <button class="accordion__trigger" type="button">
+        <span>Are children welcome?</span>
+        <span class="accordion__icon">+</span>
+      </button>
+      <div class="accordion__panel"><p>We love your little ones, but our celebration is an adults-only evening. Thank you for understanding.</p></div>
+    </div>
+    <div class="accordion__item">
+      <button class="accordion__trigger" type="button">
+        <span>Can I bring a plus one?</span>
+        <span class="accordion__icon">+</span>
+      </button>
+      <div class="accordion__panel"><p>Seating is limited, so please refer to your invitation for the number of guests included, or reach out to us directly.</p></div>
+    </div>
+    <div class="accordion__item">
+      <button class="accordion__trigger" type="button">
+        <span>Is the venue indoor or outdoor?</span>
+        <span class="accordion__icon">+</span>
+      </button>
+      <div class="accordion__panel"><p>The ceremony takes place outdoors in the garden, with the reception under a covered pavilion should the weather turn.</p></div>
+    </div>
+    <div class="accordion__item">
+      <button class="accordion__trigger" type="button">
+        <span>By when should I RSVP?</span>
+        <span class="accordion__icon">+</span>
+      </button>
+      <div class="accordion__panel"><p>Kindly RSVP by September 1st, 2026 using the form below so we can finalize seating and catering.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- ================= RSVP ================= -->
@@ -159,10 +372,19 @@
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
+  <svg class="footer__wreath" viewBox="0 0 300 300"><use href="#wreath"/></svg>
   <p class="footer__names">Ahmed <span>&amp;</span> Hajar</p>
   <p class="footer__date">26 &middot; 09 &middot; 2026</p>
   <p class="footer__thanks">With love and gratitude, we thank you for being part of our story.</p>
 </footer>
+
+<!-- Background music toggle -->
+<button class="music-toggle" id="music-toggle" aria-label="Toggle background music" aria-pressed="false">
+  <span class="music-toggle__bars"><i></i><i></i><i></i></span>
+</button>
+<audio id="bg-music" loop preload="none">
+  <source src="assets/audio/song.mp3" type="audio/mpeg">
+</audio>
 
 <script src="assets/js/script.js"></script>
 </body>
