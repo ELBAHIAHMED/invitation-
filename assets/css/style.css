@@ -657,6 +657,28 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 .lantern__cap, .lantern__body, .lantern__tip { fill: var(--ivory); opacity: 0.9; }
 .lantern__glow { fill: var(--gold-light); opacity: 0.7; }
 
+.chandelier__chain, .chandelier__arm, .chandelier__ring, .chandelier__drop {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.3;
+}
+.chandelier__bulb { fill: currentColor; }
+
+.closing { background: var(--champagne); max-width: none; padding: 5rem 1.5rem; }
+.closing__chandelier {
+  width: min(50vw, 170px);
+  height: auto;
+  color: var(--gold);
+  opacity: 0.85;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+.closing__message {
+  font-family: var(--font-script);
+  font-size: clamp(1.6rem, 4.5vw, 2.3rem);
+  color: var(--champagne-text);
+}
+
 .hero__bouquet {
   position: absolute;
   width: 22%;
@@ -796,6 +818,30 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   color: var(--ink-soft);
   line-height: 1.8;
   font-size: 1.05rem;
+}
+.intro__divider {
+  width: 34px;
+  height: 34px;
+  fill: var(--gold);
+  opacity: 0.8;
+  margin: 0 auto 1.8rem;
+  display: block;
+}
+.intro__details {
+  margin-top: 2rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid rgba(156, 107, 62, 0.25);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--champagne-text);
+  line-height: 1.9;
+}
+.intro__venue {
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  color: var(--gold);
+  letter-spacing: 0;
 }
 
 /* ============ Mosque illustration ============ */
@@ -944,12 +990,14 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 .agenda__item:last-child { padding-bottom: 0; }
 .agenda__dot {
   position: absolute;
-  left: -2.05rem;
-  top: 6px;
-  width: 9px;
-  height: 9px;
+  left: -2.65rem;
+  top: -2px;
+  width: 22px;
+  height: 22px;
+  fill: var(--gold);
+  background: var(--ivory-deep);
   border-radius: 50%;
-  background: var(--gold);
+  padding: 3px;
   box-shadow: 0 0 0 4px var(--ivory-deep);
 }
 .agenda__time {
@@ -1002,15 +1050,42 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   border-bottom: 1px solid var(--sage);
   padding-bottom: 2px;
 }
-.map-frame {
-  max-width: var(--max-width);
+.map-card {
+  max-width: 480px;
   margin: 3rem auto 0;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.4rem 1.6rem;
+  background: var(--white);
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(58,51,44,0.08);
-  aspect-ratio: 16 / 7;
+  box-shadow: 0 10px 30px rgba(58, 51, 44, 0.08);
+  text-align: left;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.map-frame iframe { width: 100%; height: 100%; border: 0; }
+.map-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(58, 51, 44, 0.12);
+}
+.map-card__icon { font-size: 1.6rem; flex-shrink: 0; }
+.map-card__text { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; }
+.map-card__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.map-card__sub {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.map-card__arrow {
+  font-size: 1.3rem;
+  color: var(--sage);
+  transition: transform 0.25s ease;
+}
+.map-card:hover .map-card__arrow { transform: translateX(4px); }
+
 .details__calendar { margin-top: 3rem; }
 
 /* ============ Travel & Registry (shared card style) ============ */

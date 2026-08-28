@@ -73,6 +73,27 @@
       <path d="M280,175 C280,158 300,158 300,175 Z" class="mosque__window"/>
       <line x1="60" y1="140" x2="340" y2="140" class="mosque__ledge"/>
     </symbol>
+    <symbol id="chandelier" viewBox="0 0 200 170">
+      <line x1="100" y1="0" x2="100" y2="28" class="chandelier__chain"/>
+      <ellipse cx="100" cy="62" rx="72" ry="16" class="chandelier__ring"/>
+      <ellipse cx="100" cy="100" rx="46" ry="11" class="chandelier__ring"/>
+      <path d="M100,28 C60,40 40,55 34,62 M100,28 C140,40 160,55 166,62" class="chandelier__arm"/>
+      <path d="M100,62 C75,75 60,88 56,100 M100,62 C125,75 140,88 144,100" class="chandelier__arm"/>
+      <circle cx="34" cy="62" r="4" class="chandelier__bulb"/>
+      <circle cx="66" cy="50" r="4" class="chandelier__bulb"/>
+      <circle cx="100" cy="46" r="4" class="chandelier__bulb"/>
+      <circle cx="134" cy="50" r="4" class="chandelier__bulb"/>
+      <circle cx="166" cy="62" r="4" class="chandelier__bulb"/>
+      <circle cx="56" cy="100" r="3.2" class="chandelier__bulb"/>
+      <circle cx="78" cy="93" r="3.2" class="chandelier__bulb"/>
+      <circle cx="100" cy="90" r="3.2" class="chandelier__bulb"/>
+      <circle cx="122" cy="93" r="3.2" class="chandelier__bulb"/>
+      <circle cx="144" cy="100" r="3.2" class="chandelier__bulb"/>
+      <line x1="100" y1="111" x2="100" y2="150" class="chandelier__drop"/>
+      <line x1="80" y1="105" x2="86" y2="130" class="chandelier__drop"/>
+      <line x1="120" y1="105" x2="114" y2="130" class="chandelier__drop"/>
+      <circle cx="100" cy="154" r="3" class="chandelier__bulb"/>
+    </symbol>
     <symbol id="lantern" viewBox="0 0 60 120">
       <line x1="30" y1="0" x2="30" y2="18" class="lantern__chain"/>
       <path d="M18,18 L42,18 L42,26 L18,26 Z" class="lantern__cap"/>
@@ -288,6 +309,7 @@
 <section class="section intro reveal">
   <div class="torn-card">
     <p class="intro__bismillah" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <svg class="intro__divider" viewBox="0 0 40 40" aria-hidden="true"><use href="#bloom"/></svg>
     <p class="intro__poem">
       Two Souls, One Journey<br>
       A Union Written in Destiny<br>
@@ -297,6 +319,10 @@
       Dear Family &amp; Friends,<br>
       We joyfully invite you to share in an evening of love, laughter,
       heartfelt duas, and cherished memories as we begin our life together.
+    </p>
+    <p class="intro__details">
+      Saturday, September 26, 2026 &middot; 7:00 PM<br>
+      <span class="intro__venue">Venue Name, City</span>
     </p>
   </div>
 </section>
@@ -352,34 +378,34 @@
 
   <div class="agenda">
     <div class="agenda__item">
-      <span class="agenda__time">4:00 PM</span>
-      <span class="agenda__dot" aria-hidden="true"></span>
+      <span class="agenda__time">6:00 PM</span>
+      <svg class="agenda__dot" viewBox="0 0 40 40" aria-hidden="true"><use href="#bloom"/></svg>
       <div class="agenda__body">
-        <h3>Ceremony</h3>
-        <p>Exchange of vows beneath the garden arch.</p>
-      </div>
-    </div>
-    <div class="agenda__item">
-      <span class="agenda__time">5:30 PM</span>
-      <span class="agenda__dot" aria-hidden="true"></span>
-      <div class="agenda__body">
-        <h3>Cocktail Hour</h3>
-        <p>Drinks, canap&eacute;s, and photographs among the roses.</p>
+        <h3>Welcome Reception</h3>
+        <p>Arrival, drinks, and warm greetings.</p>
       </div>
     </div>
     <div class="agenda__item">
       <span class="agenda__time">7:00 PM</span>
-      <span class="agenda__dot" aria-hidden="true"></span>
+      <svg class="agenda__dot" viewBox="0 0 40 40" aria-hidden="true"><use href="#bloom"/></svg>
       <div class="agenda__body">
-        <h3>Reception</h3>
+        <h3>Wedding Ceremony</h3>
+        <p>Exchange of vows beneath the garden arch.</p>
+      </div>
+    </div>
+    <div class="agenda__item">
+      <span class="agenda__time">8:30 PM</span>
+      <svg class="agenda__dot" viewBox="0 0 40 40" aria-hidden="true"><use href="#bloom"/></svg>
+      <div class="agenda__body">
+        <h3>Dinner</h3>
         <p>Dinner and toasts under the string-lit pavilion.</p>
       </div>
     </div>
     <div class="agenda__item">
-      <span class="agenda__time">9:00 PM</span>
-      <span class="agenda__dot" aria-hidden="true"></span>
+      <span class="agenda__time">10:00 PM</span>
+      <svg class="agenda__dot" viewBox="0 0 40 40" aria-hidden="true"><use href="#bloom"/></svg>
       <div class="agenda__body">
-        <h3>Dancing &amp; Celebration</h3>
+        <h3>Party</h3>
         <p>The night continues under the stars &mdash; join us on the floor.</p>
       </div>
     </div>
@@ -396,32 +422,38 @@
     <div class="detail-card reveal">
       <span class="detail-card__icon">💒</span>
       <h3>Ceremony</h3>
-      <p class="detail-card__time">Saturday, September 26, 2026 &middot; 4:00 PM</p>
+      <p class="detail-card__time">Saturday, September 26, 2026 &middot; 7:00 PM</p>
       <p class="detail-card__place">Venue Name<br>City, Country</p>
-      <a class="detail-card__link" href="#" target="_blank" rel="noopener">Get Directions</a>
+      <a class="detail-card__link" href="https://maps.app.goo.gl/PBye42NtzMrtXKSG6" target="_blank" rel="noopener">Get Directions</a>
     </div>
 
     <div class="detail-card reveal">
       <span class="detail-card__icon">🥂</span>
-      <h3>Reception</h3>
-      <p class="detail-card__time">Saturday, September 26, 2026 &middot; 7:00 PM</p>
-      <p class="detail-card__place">Reception Hall Name<br>City, Country</p>
-      <a class="detail-card__link" href="#" target="_blank" rel="noopener">Get Directions</a>
+      <h3>Dinner &amp; Reception</h3>
+      <p class="detail-card__time">Saturday, September 26, 2026 &middot; 8:30 PM</p>
+      <p class="detail-card__place">Venue Name<br>City, Country</p>
+      <a class="detail-card__link" href="https://maps.app.goo.gl/PBye42NtzMrtXKSG6" target="_blank" rel="noopener">Get Directions</a>
     </div>
   </div>
 
-  <div class="map-frame reveal">
-    <iframe
-      title="Wedding venue map"
-      src="https://www.google.com/maps?q=Venue+Name,+City,+Country&output=embed"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
+  <a class="map-card reveal" href="https://maps.app.goo.gl/PBye42NtzMrtXKSG6" target="_blank" rel="noopener">
+    <span class="map-card__icon">📍</span>
+    <span class="map-card__text">
+      <span class="map-card__title">View on Google Maps</span>
+      <span class="map-card__sub">Tap for directions to the venue</span>
+    </span>
+    <span class="map-card__arrow">&rarr;</span>
+  </a>
 
   <div class="details__calendar reveal">
     <a href="#" id="add-to-calendar" class="btn btn--solid">Add to Calendar</a>
   </div>
+</section>
+
+<!-- ================= CLOSING MESSAGE ================= -->
+<section class="section closing reveal">
+  <svg class="closing__chandelier" viewBox="0 0 200 170" aria-hidden="true"><use href="#chandelier"/></svg>
+  <p class="closing__message">We can&rsquo;t wait to welcome you</p>
 </section>
 
 <!-- ================= TRAVEL & STAY ================= -->
