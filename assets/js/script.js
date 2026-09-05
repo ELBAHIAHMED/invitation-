@@ -132,28 +132,14 @@ if (heroPhoto && heroArchWrap) {
   heroPhoto.addEventListener('load', () => heroArchWrap.classList.add('hero-arch-wrap--has-photo'));
 }
 
-// ============ Nav: scroll shadow, mobile menu, active link ============
+// ============ Nav: scroll shadow, active link ============
 const nav = document.getElementById('nav');
-const navToggle = document.getElementById('nav-toggle');
 const navLinks = document.getElementById('nav-links');
 
 if (nav) {
   const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
-}
-
-if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-  });
-  navLinks.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('is-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-    });
-  });
 }
 
 const navSectionLinks = navLinks ? [...navLinks.querySelectorAll('a[href^="#"]')] : [];
@@ -176,42 +162,6 @@ if ('IntersectionObserver' in window && navSections.length) {
     { rootMargin: '-45% 0px -45% 0px' }
   );
   navSections.forEach((section) => navObserver.observe(section));
-}
-
-// ============ FAQ accordion ============
-document.querySelectorAll('.accordion__trigger').forEach((trigger) => {
-  trigger.addEventListener('click', () => {
-    const item = trigger.closest('.accordion__item');
-    const wasOpen = item.classList.contains('is-open');
-    item.parentElement.querySelectorAll('.accordion__item').forEach((el) =>
-      el.classList.remove('is-open')
-    );
-    if (!wasOpen) item.classList.add('is-open');
-  });
-});
-
-// ============ Gallery lightbox ============
-const lightbox = document.getElementById('lightbox');
-const lightboxFrame = document.getElementById('lightbox-frame');
-const lightboxClose = document.getElementById('lightbox-close');
-
-document.querySelectorAll('.gallery__item').forEach((item) => {
-  item.addEventListener('click', () => {
-    if (!lightbox) return;
-    lightboxFrame.style.background = getComputedStyle(item).background;
-    lightbox.hidden = false;
-  });
-});
-if (lightboxClose) {
-  lightboxClose.addEventListener('click', () => (lightbox.hidden = true));
-}
-if (lightbox) {
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) lightbox.hidden = true;
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') lightbox.hidden = true;
-  });
 }
 
 // ============ Background music toggle ============
@@ -322,7 +272,7 @@ if (calendarBtn) {
       'BEGIN:VEVENT',
       `DTSTART:${formatDate(start)}`,
       `DTEND:${formatDate(end)}`,
-      'SUMMARY:Ahmed & Hajar\'s Wedding',
+      'SUMMARY:Hajar & Ahmed\'s Wedding',
       'DESCRIPTION:Join us as we celebrate our wedding day!',
       'LOCATION:Venue Name, City, Country',
       'END:VEVENT',
@@ -333,33 +283,10 @@ if (calendarBtn) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'ahmed-hajar-wedding.ics';
+    a.download = 'hajar-ahmed-wedding.ics';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  });
-}
-
-// ============ RSVP form ============
-const rsvpForm = document.getElementById('rsvp-form');
-const rsvpStatus = document.getElementById('rsvp-status');
-if (rsvpForm) {
-  rsvpForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // NOTE: This form currently only confirms locally. To actually receive
-    // RSVPs, connect it to a backend or a service such as Formspree/Getform
-    // by setting the form's `action` attribute and removing this handler's
-    // preventDefault, or by sending the data via fetch() to your endpoint.
-    const data = new FormData(rsvpForm);
-    const name = data.get('name');
-    const attending = data.get('attending');
-
-    if (attending === 'yes') {
-      rsvpStatus.textContent = `Thank you, ${name}! We can't wait to celebrate with you.`;
-    } else {
-      rsvpStatus.textContent = `Thank you for letting us know, ${name}. You'll be missed!`;
-    }
-    rsvpForm.reset();
   });
 }
