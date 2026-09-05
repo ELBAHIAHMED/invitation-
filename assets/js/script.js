@@ -1,6 +1,6 @@
 // ============ Wedding date config ============
 // Edit this to change the countdown / calendar target.
-const WEDDING_DATE = new Date('2026-09-26T19:00:00');
+const WEDDING_DATE = new Date('2026-09-26T20:00:00');
 
 // ============ Preloader ============
 window.addEventListener('load', () => {

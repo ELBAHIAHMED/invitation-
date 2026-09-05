@@ -174,7 +174,7 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 10vh 2rem 2rem;
   opacity: 0;
   animation: heroTextFadeIn 1.2s ease 0.3s forwards;
 }
@@ -650,15 +650,16 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 
 .hero__text {
   position: absolute;
-  top: 8%;
+  top: 14%;
   left: 0;
   right: 0;
   text-align: center;
   z-index: 2;
 }
 .hero__eyebrow {
-  font-family: var(--font-serif);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
   font-size: clamp(1.15rem, 3.2vw, 1.5rem);
   letter-spacing: 0.03em;
   color: var(--gold);
@@ -666,10 +667,11 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   text-align: center;
 }
 .hero__date-line {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.22em;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1rem, 2.6vw, 1.15rem);
+  letter-spacing: 0.14em;
   color: var(--gold);
   margin-top: 1rem;
   font-variant-numeric: tabular-nums;
