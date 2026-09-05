@@ -274,7 +274,7 @@ if (calendarBtn) {
       `DTEND:${formatDate(end)}`,
       'SUMMARY:Hajar & Ahmed\'s Wedding',
       'DESCRIPTION:Join us as we celebrate our wedding day!',
-      'LOCATION:Venue Name, City, Country',
+      'LOCATION:Qasr Al-Sa\'ada (قصر السعادة)',
       'END:VEVENT',
       'END:VCALENDAR',
     ].join('\r\n');

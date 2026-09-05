@@ -183,11 +183,8 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   color: var(--ivory);
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
-.envelope-gate.is-video-hero .hero__ceremony,
 .envelope-gate.is-video-hero .hero__amp { color: var(--gold-light); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35); }
 .envelope-gate.is-video-hero .hero__names { color: var(--ivory); text-shadow: 0 3px 14px rgba(0, 0, 0, 0.4); }
-.envelope-gate.is-video-hero .hero__of { color: rgba(250, 247, 239, 0.85); }
-.envelope-gate.is-video-hero .hero__of-line { background: var(--ivory); opacity: 0.7; }
 
 .envelope-gate.is-video-hero .hero__scroll {
   position: absolute;
@@ -660,35 +657,12 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   z-index: 2;
 }
 .hero__eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.3rem;
-}
-.hero__ceremony {
-  font-family: var(--font-script);
-  font-size: clamp(1.6rem, 4.5vw, 2.1rem);
-  color: var(--gold);
-  margin-bottom: 0.4rem;
-}
-.hero__of {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.7rem;
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-  margin-bottom: 0.9rem;
-}
-.hero__of-line {
-  width: 32px;
-  height: 1px;
-  background: var(--gold);
-  opacity: 0.7;
+  font-size: clamp(1.05rem, 3vw, 1.35rem);
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  margin-bottom: 1.1rem;
 }
 .hero__date-line {
   font-family: var(--font-sans);
@@ -758,18 +732,25 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   );
 }
 .intro__bismillah {
-  font-family: var(--font-script), 'Amiri', serif;
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-family: 'Aref Ruqaa', serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
   color: var(--gold);
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.6rem;
 }
-.intro__bismillah[lang="ar"] { font-family: 'Amiri', serif; }
+/* Arabic body copy: a classier, more romantic calligraphic face than plain Naskh. */
+[dir="rtl"] .intro__poem,
+[dir="rtl"] .intro__message {
+  font-family: 'Aref Ruqaa', serif;
+  font-size: clamp(1.25rem, 3.2vw, 1.55rem);
+  line-height: 2;
+}
 .intro__poem {
   font-family: var(--font-script);
   font-size: clamp(1.3rem, 3vw, 1.7rem);
   color: var(--champagne-text);
   line-height: 1.7;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.6rem;
 }
 .intro__message {
   font-family: var(--font-serif);
@@ -777,6 +758,7 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   color: var(--ink-soft);
   line-height: 1.8;
   font-size: 1.05rem;
+  margin-bottom: 1.4rem;
 }
 .intro__divider {
   width: 34px;
@@ -786,8 +768,14 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   margin: 0 auto 1.8rem;
   display: block;
 }
+.intro__divider--mid { margin: 2.4rem auto; opacity: 0.5; }
+.intro__translation {
+  padding-top: 0.2rem;
+  opacity: 0.92;
+}
+.intro__poem--en { font-family: var(--font-serif); font-style: italic; }
 .intro__details {
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding-top: 1.6rem;
   border-top: 1px solid rgba(156, 107, 62, 0.25);
   font-family: var(--font-sans);
@@ -899,39 +887,33 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 
 /* ============ Details ============ */
 .details { background: var(--ivory); max-width: none; }
-.details__grid {
+.details__venue {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.details__venue [lang="ar"] {
+  font-family: 'Aref Ruqaa', serif;
+  font-size: 1.2em;
+  margin-inline-start: 0.4rem;
+}
+.details__time {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin-bottom: 2.5rem;
+}
+.map-frame {
   max-width: var(--max-width);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-}
-.detail-card {
-  background: var(--white);
-  padding: 3rem 2rem;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(58,51,44,0.06);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(58, 51, 44, 0.08);
+  aspect-ratio: 16 / 10;
 }
-.detail-card__icon { font-size: 2rem; display: block; margin-bottom: 1rem; }
-.detail-card h3 {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1rem;
-}
-.detail-card__time { font-size: 1.15rem; margin-bottom: 0.6rem; }
-.detail-card__place { color: var(--ink-soft); margin-bottom: 1.2rem; line-height: 1.6; }
-.detail-card__link {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--sage);
-  border-bottom: 1px solid var(--sage);
-  padding-bottom: 2px;
-}
+.map-frame iframe { width: 100%; height: 100%; border: 0; }
 .map-card {
   max-width: 480px;
   margin: 3rem auto 0;
