@@ -3,12 +3,23 @@
 const WEDDING_DATE = new Date('2026-09-26T20:00:00');
 
 // ============ Preloader ============
-window.addEventListener('load', () => {
+// Normally hidden once everything (fonts, images, the audio/video files) has
+// finished loading via the 'load' event. But that event waits on EVERY
+// subresource, so on a slow connection it can take a long time to fire --
+// making the envelope look stuck behind the preloader until a guest happens
+// to tap around. The 3s fallback guarantees it hides on its own regardless.
+(function hidePreloaderWhenReady() {
   const preloader = document.getElementById('preloader');
-  if (preloader) {
-    setTimeout(() => preloader.classList.add('is-hidden'), 500);
-  }
-});
+  if (!preloader) return;
+  let hidden = false;
+  const hide = () => {
+    if (hidden) return;
+    hidden = true;
+    preloader.classList.add('is-hidden');
+  };
+  window.addEventListener('load', () => setTimeout(hide, 400));
+  setTimeout(hide, 3000);
+})();
 
 // ============ Envelope gate ============
 const envelopeGate = document.getElementById('envelope-gate');
