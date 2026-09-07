@@ -38,6 +38,7 @@ if (envelopeVideo) {
 // themselves; the toggle button still works normally to pause/resume it.
 const musicToggle = document.getElementById('music-toggle');
 const bgMusic = document.getElementById('bg-music');
+if (bgMusic) bgMusic.volume = 0.35; // kept low so it sits behind the page, not over it
 
 function startBackgroundMusic() {
   if (!bgMusic || !musicToggle || musicToggle.getAttribute('aria-pressed') === 'true') return;
