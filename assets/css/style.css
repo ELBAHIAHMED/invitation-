@@ -504,7 +504,10 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 
 /* ============ Buttons ============ */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
   padding: 0.9rem 2.2rem;
   font-family: var(--font-sans);
   font-size: 0.75rem;
@@ -515,17 +518,22 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   cursor: pointer;
   border: none;
 }
-.btn--ghost {
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  background: transparent;
-}
-.btn--ghost:hover { background: var(--gold); color: var(--white); }
 .btn--solid {
-  background: var(--sage);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--ivory);
+  box-shadow: 0 10px 26px rgba(166, 129, 60, 0.35);
 }
-.btn--solid:hover { background: var(--gold); }
+.btn--solid:hover {
+  background: linear-gradient(135deg, var(--wax) 0%, var(--gold) 100%);
+  box-shadow: 0 14px 32px rgba(166, 129, 60, 0.45);
+  transform: translateY(-1px);
+}
+.btn__icon {
+  width: 14px;
+  height: 14px;
+  fill: var(--ivory);
+  opacity: 0.9;
+}
 
 /* ============ Hero ============ */
 .hero {
@@ -785,12 +793,6 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   padding-top: 1.6rem;
   border-top: 1px solid rgba(156, 107, 62, 0.25);
   margin-bottom: 0;
-}
-.intro__venue {
-  font-family: var(--font-script);
-  font-size: 1.3rem;
-  color: var(--gold);
-  letter-spacing: 0;
 }
 
 /* ============ Mosque illustration ============ */
