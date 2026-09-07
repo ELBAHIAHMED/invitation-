@@ -27,13 +27,16 @@ const envelope = document.getElementById('envelope');
 const envelopeSeal = document.getElementById('envelope-seal');
 const envelopeVideo = document.getElementById('envelope-video');
 
-// If assets/video/envelope-open.mp4 exists and loads, switch to video mode.
-// Otherwise this silently stays on the vector envelope — no broken UI either way.
+// If assets/video/envelope-open.mp4 exists and loads, we'll use it for the
+// opening animation -- but we only switch the visuals over to it at the
+// moment of tapping (see openEnvelope() below). preload="metadata" only
+// guarantees the video's duration/dimensions are known, not an actual
+// paintable frame, so switching to it early leaves a blank video element on
+// screen until playback starts. Keeping the fully self-contained vector
+// envelope as the visible "tap to open" state avoids that blank gap.
+let videoReady = false;
 if (envelopeVideo) {
-  const markVideoReady = () => {
-    envelope.classList.add('has-video');
-    if (envelopeGate) envelopeGate.classList.add('has-video-mode');
-  };
+  const markVideoReady = () => { videoReady = true; };
   if (envelopeVideo.readyState >= 1) {
     // Metadata already loaded before this script ran (fast/cached load) — the
     // 'loadedmetadata' event already fired and would never be caught below.
@@ -124,11 +127,14 @@ if (envelopeVideo) {
 function openEnvelope() {
   if (!envelope || envelope.classList.contains('is-glowing') || envelope.classList.contains('is-open')) return;
 
-  if (envelope.classList.contains('has-video')) {
-    envelope.classList.add('is-glowing'); // guards against double-triggering while playing
+  if (videoReady) {
+    envelope.classList.add('has-video', 'is-glowing'); // guards against double-triggering while playing
+    if (envelopeGate) envelopeGate.classList.add('has-video-mode');
     envelopeVideo.play().catch(() => {
-      // Autoplay/play blocked — fall back to the vector sequence instead of a dead tap.
+      // Playback blocked despite being ready — fall back to the vector sequence instead of a dead tap.
       envelope.classList.remove('has-video', 'is-glowing');
+      if (envelopeGate) envelopeGate.classList.remove('has-video-mode');
+      videoReady = false;
       openEnvelope();
     });
     return; // becomeVideoHero() runs on the video's 'ended' event, and starts the music
