@@ -775,6 +775,12 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   font-size: clamp(1.2rem, 2.6vw, 1.4rem);
   line-height: 2.1;
 }
+/* The English opening lines, weighted to match how bold the Arabic (Aref
+   Ruqaa) reads next to it -- Cormorant Garamond needs an explicit bold
+   weight to carry the same presence. */
+.intro__poem--en {
+  font-weight: 700;
+}
 .intro__divider {
   width: 34px;
   height: 34px;
