@@ -32,6 +32,36 @@ if (envelopeVideo) {
   }
 }
 
+// ============ Background music ============
+// Starts automatically once the envelope/letter has opened (see becomeVideoHero()
+// and openEnvelope() below) so guests don't have to find and tap the toggle
+// themselves; the toggle button still works normally to pause/resume it.
+const musicToggle = document.getElementById('music-toggle');
+const bgMusic = document.getElementById('bg-music');
+
+function startBackgroundMusic() {
+  if (!bgMusic || !musicToggle || musicToggle.getAttribute('aria-pressed') === 'true') return;
+  bgMusic
+    .play()
+    .then(() => musicToggle.setAttribute('aria-pressed', 'true'))
+    .catch(() => {
+      // Autoplay blocked (rare, this soon after a tap) — the toggle button
+      // stays available so the guest can just start it manually.
+    });
+}
+
+if (musicToggle && bgMusic) {
+  musicToggle.addEventListener('click', () => {
+    const isPlaying = musicToggle.getAttribute('aria-pressed') === 'true';
+    if (isPlaying) {
+      bgMusic.pause();
+      musicToggle.setAttribute('aria-pressed', 'false');
+    } else {
+      startBackgroundMusic();
+    }
+  });
+}
+
 // Scatter twinkling sparkle particles around the seal, concentrated near the center.
 (function createEnvelopeSparkles() {
   const container = document.getElementById('envelope-sparkles');
@@ -53,15 +83,6 @@ if (envelopeVideo) {
   }
 })();
 
-function revealSite() {
-  envelope.classList.add('is-open');
-  document.body.classList.remove('no-scroll');
-  setTimeout(() => envelopeGate && envelopeGate.classList.add('is-open'), 250);
-  setTimeout(() => {
-    if (envelopeGate) envelopeGate.style.display = 'none';
-  }, 1300);
-}
-
 // When the real video finishes, it stays on screen (frozen on its last frame) and
 // becomes the actual hero section, instead of disappearing to reveal a separate one.
 function becomeVideoHero() {
@@ -81,6 +102,7 @@ function becomeVideoHero() {
   }
 
   envelopeGate.classList.add('is-video-hero');
+  startBackgroundMusic();
 }
 
 if (envelopeVideo) {
@@ -97,7 +119,7 @@ function openEnvelope() {
       envelope.classList.remove('has-video', 'is-glowing');
       openEnvelope();
     });
-    return; // revealSite() runs on the video's 'ended' event
+    return; // becomeVideoHero() runs on the video's 'ended' event, and starts the music
   }
 
   // Vector fallback sequence.
@@ -107,6 +129,7 @@ function openEnvelope() {
   setTimeout(() => {
     envelope.classList.add('is-open');
     document.body.classList.remove('no-scroll');
+    startBackgroundMusic();
   }, 900);
   setTimeout(() => envelopeGate && envelopeGate.classList.add('is-open'), 900 + 250);
   setTimeout(() => {
@@ -162,24 +185,6 @@ if ('IntersectionObserver' in window && navSections.length) {
     { rootMargin: '-45% 0px -45% 0px' }
   );
   navSections.forEach((section) => navObserver.observe(section));
-}
-
-// ============ Background music toggle ============
-const musicToggle = document.getElementById('music-toggle');
-const bgMusic = document.getElementById('bg-music');
-if (musicToggle && bgMusic) {
-  musicToggle.addEventListener('click', () => {
-    const isPlaying = musicToggle.getAttribute('aria-pressed') === 'true';
-    if (isPlaying) {
-      bgMusic.pause();
-      musicToggle.setAttribute('aria-pressed', 'false');
-    } else {
-      bgMusic.play().catch(() => {
-        // No audio file provided yet — see README to add your own track.
-      });
-      musicToggle.setAttribute('aria-pressed', 'true');
-    }
-  });
 }
 
 // ============ Countdown ============
