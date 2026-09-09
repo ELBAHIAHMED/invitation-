@@ -27,27 +27,14 @@ const envelope = document.getElementById('envelope');
 const envelopeSeal = document.getElementById('envelope-seal');
 const envelopeVideo = document.getElementById('envelope-video');
 
-// If assets/video/envelope-open.mp4 exists and loads, switch to showing it
-// (its own first frame, e.g. a closed envelope) right away, in place of the
-// vector envelope. This waits for an actual paintable frame (readyState >= 2,
-// the 'loadeddata' event) rather than just 'loadedmetadata' (readyState 1,
-// which only guarantees duration/dimensions are known) -- switching on
-// metadata alone left a blank video element on screen until playback
-// started. If the video never becomes ready this silently stays on the
-// vector envelope — no broken UI either way.
-if (envelopeVideo) {
-  const markVideoReady = () => {
-    envelope.classList.add('has-video');
-    if (envelopeGate) envelopeGate.classList.add('has-video-mode');
-  };
-  if (envelopeVideo.readyState >= 2) {
-    // A frame is already decoded before this script ran (fast/cached load) —
-    // the 'loadeddata' event already fired and would never be caught below.
-    markVideoReady();
-  } else {
-    envelopeVideo.addEventListener('loadeddata', markVideoReady, { once: true });
-  }
-}
+// If assets/video/envelope-open.mp4 exists, we play it on tap. We deliberately
+// do NOT try to detect/preload it ahead of time: mobile browsers (iOS Safari
+// especially) largely refuse to buffer video data before a direct user
+// gesture, to save cellular data -- so any "is it ready yet?" check done
+// before the tap would always say no on phones, even though play() works
+// fine once the guest actually taps (see openEnvelope() below). Detecting
+// readiness in advance is what caused the video to work on a laptop (which
+// does preload) but silently never appear on a phone.
 
 // ============ Background music ============
 // Starts automatically once the envelope/letter has opened (see becomeVideoHero()
@@ -127,21 +114,7 @@ if (envelopeVideo) {
   envelopeVideo.addEventListener('ended', becomeVideoHero);
 }
 
-function openEnvelope() {
-  if (!envelope || envelope.classList.contains('is-glowing') || envelope.classList.contains('is-open')) return;
-
-  if (envelope.classList.contains('has-video')) {
-    envelope.classList.add('is-glowing'); // guards against double-triggering while playing
-    envelopeVideo.play().catch(() => {
-      // Autoplay/play blocked — fall back to the vector sequence instead of a dead tap.
-      envelope.classList.remove('has-video', 'is-glowing');
-      if (envelopeGate) envelopeGate.classList.remove('has-video-mode');
-      openEnvelope();
-    });
-    return; // becomeVideoHero() runs on the video's 'ended' event, and starts the music
-  }
-
-  // Vector fallback sequence.
+function openVectorSequence() {
   // Stage 1: the seal glows and light beams from the seam.
   envelope.classList.add('is-glowing');
   // Stage 2: the flap lifts open and the whole card fades to reveal the site.
@@ -154,6 +127,39 @@ function openEnvelope() {
   setTimeout(() => {
     if (envelopeGate) envelopeGate.style.display = 'none';
   }, 900 + 1300);
+}
+
+function openEnvelope() {
+  if (!envelope || envelope.classList.contains('is-glowing') || envelope.classList.contains('is-open')) return;
+
+  if (envelopeVideo) {
+    // Try the real video first, triggered directly by this tap -- a genuine
+    // user gesture, which is what makes mobile browsers actually load and
+    // play it even though they wouldn't preload it beforehand.
+    envelope.classList.add('has-video', 'is-glowing'); // guards against double-triggering while playing
+    if (envelopeGate) envelopeGate.classList.add('has-video-mode');
+
+    let settled = false;
+    const fallBackToVector = () => {
+      if (settled) return;
+      settled = true;
+      envelopeVideo.pause();
+      envelope.classList.remove('has-video', 'is-glowing');
+      if (envelopeGate) envelopeGate.classList.remove('has-video-mode');
+      openVectorSequence();
+    };
+    envelopeVideo.addEventListener('playing', () => { settled = true; }, { once: true });
+    envelopeVideo.addEventListener('error', fallBackToVector, { once: true });
+    // play()'s promise isn't a reliable enough signal on its own: some
+    // browsers neither resolve nor reject it when the video can't actually
+    // decode, leaving it pending forever. Give it a short window to genuinely
+    // start playing (the 'playing' event above) before assuming it's stuck.
+    envelopeVideo.play().catch(fallBackToVector);
+    setTimeout(fallBackToVector, 2500);
+    return; // becomeVideoHero() runs on the video's 'ended' event, and starts the music
+  }
+
+  openVectorSequence();
 }
 
 if (envelopeSeal) envelopeSeal.addEventListener('click', openEnvelope);
