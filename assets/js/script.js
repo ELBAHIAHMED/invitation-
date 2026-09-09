@@ -27,14 +27,14 @@ const envelope = document.getElementById('envelope');
 const envelopeSeal = document.getElementById('envelope-seal');
 const envelopeVideo = document.getElementById('envelope-video');
 
-// If assets/video/envelope-open.mp4 exists, we play it on tap. We deliberately
-// do NOT try to detect/preload it ahead of time: mobile browsers (iOS Safari
-// especially) largely refuse to buffer video data before a direct user
-// gesture, to save cellular data -- so any "is it ready yet?" check done
-// before the tap would always say no on phones, even though play() works
-// fine once the guest actually taps (see openEnvelope() below). Detecting
-// readiness in advance is what caused the video to work on a laptop (which
-// does preload) but silently never appear on a phone.
+// The video (with its poster image, assets/img/envelope-poster.jpg) is the
+// default view — see the "has-video"/"has-video-mode" classes already on
+// the markup. The poster shows instantly on every device with no buffering
+// wait, so there's nothing to detect/preload ahead of time here; actual
+// playback is attempted directly on tap (see openEnvelope() below), since a
+// tap is a genuine user gesture that makes mobile browsers load and play it
+// even though they wouldn't buffer it beforehand. If playback genuinely
+// fails, openEnvelope() switches over to the vector envelope instead.
 
 // ============ Background music ============
 // Starts automatically once the envelope/letter has opened (see becomeVideoHero()
@@ -133,11 +133,9 @@ function openEnvelope() {
   if (!envelope || envelope.classList.contains('is-glowing') || envelope.classList.contains('is-open')) return;
 
   if (envelopeVideo) {
-    // Try the real video first, triggered directly by this tap -- a genuine
-    // user gesture, which is what makes mobile browsers actually load and
-    // play it even though they wouldn't preload it beforehand.
-    envelope.classList.add('has-video', 'is-glowing'); // guards against double-triggering while playing
-    if (envelopeGate) envelopeGate.classList.add('has-video-mode');
+    // Video mode is already the default (see the markup); just guard against
+    // double-triggering while it's playing.
+    envelope.classList.add('is-glowing');
 
     let settled = false;
     const fallBackToVector = () => {
@@ -154,8 +152,8 @@ function openEnvelope() {
     // browsers neither resolve nor reject it when the video can't actually
     // decode, leaving it pending forever. The 'playing' event above is the
     // real success signal; this timeout is only the last-resort safety net.
-    // With preload="metadata", nothing downloads until this exact tap, so on
-    // mobile data the whole file has to fetch from scratch here -- give it a
+    // preload="auto" gives it a head start where browsers honor it, but
+    // mobile browsers mostly don't until this exact tap -- give it a
     // generous window before assuming it's genuinely stuck, not just slow.
     envelopeVideo.play().catch(fallBackToVector);
     setTimeout(fallBackToVector, 8000);

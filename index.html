@@ -179,9 +179,10 @@
 <div class="petals" aria-hidden="true"></div>
 
 <!-- ================= ENVELOPE GATE ================= -->
-<div class="envelope-gate" id="envelope-gate">
-  <div class="envelope" id="envelope">
-    <!-- Vector fallback: shown by default, hidden automatically if assets/video/envelope-open.mp4 loads. -->
+<div class="envelope-gate has-video-mode" id="envelope-gate">
+  <div class="envelope has-video" id="envelope">
+    <!-- Vector fallback: hidden by default; only shown by script.js if the real
+         video below fails to play at all. -->
     <div class="envelope__vector" id="envelope-vector">
       <svg class="envelope__vine envelope__vine--l" viewBox="0 0 140 700" preserveAspectRatio="none"><use href="#rosevine"/></svg>
       <svg class="envelope__vine envelope__vine--r" viewBox="0 0 140 700" preserveAspectRatio="none"><use href="#rosevine"/></svg>
@@ -200,8 +201,10 @@
       </button>
     </div>
 
-    <!-- Real video: drop your generated clip at assets/video/envelope-open.mp4 to replace the vector version above. -->
-    <video class="envelope__video" id="envelope-video" muted playsinline preload="auto">
+    <!-- Real video, shown by default via its poster frame (so guests always see the
+         actual envelope from the video instantly, with no buffering wait) and played
+         on tap. The vector version above is only used as a fallback if playback fails. -->
+    <video class="envelope__video" id="envelope-video" muted playsinline preload="auto" poster="assets/img/envelope-poster.jpg">
       <source src="assets/video/envelope-open.mp4" type="video/mp4">
     </video>
 
