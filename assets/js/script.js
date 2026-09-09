@@ -152,10 +152,13 @@ function openEnvelope() {
     envelopeVideo.addEventListener('error', fallBackToVector, { once: true });
     // play()'s promise isn't a reliable enough signal on its own: some
     // browsers neither resolve nor reject it when the video can't actually
-    // decode, leaving it pending forever. Give it a short window to genuinely
-    // start playing (the 'playing' event above) before assuming it's stuck.
+    // decode, leaving it pending forever. The 'playing' event above is the
+    // real success signal; this timeout is only the last-resort safety net.
+    // With preload="metadata", nothing downloads until this exact tap, so on
+    // mobile data the whole file has to fetch from scratch here -- give it a
+    // generous window before assuming it's genuinely stuck, not just slow.
     envelopeVideo.play().catch(fallBackToVector);
-    setTimeout(fallBackToVector, 2500);
+    setTimeout(fallBackToVector, 8000);
     return; // becomeVideoHero() runs on the video's 'ended' event, and starts the music
   }
 
