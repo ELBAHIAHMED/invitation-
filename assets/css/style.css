@@ -161,8 +161,9 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   box-shadow: none;
 }
 .envelope.has-video .envelope__cta {
-  color: var(--ivory);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  bottom: 8%;
+  color: var(--ink);
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.4);
 }
 
 /* The relocated hero text/scroll cue, once living inside the video hero. */
@@ -391,19 +392,20 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   left: 0;
   right: 0;
   bottom: -3.2rem;
+  z-index: 3;
   text-align: center;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   color: var(--ink-soft);
   transition: opacity 0.4s ease;
 }
 .envelope.is-open .envelope__cta { opacity: 0; }
 .envelope__chevron {
   display: block;
-  margin-top: 0.5rem;
-  font-size: 1rem;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
   animation: chevronBounce 1.6s ease-in-out infinite;
 }
 @keyframes chevronBounce {
