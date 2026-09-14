@@ -42,13 +42,30 @@ const envelopeVideo = document.getElementById('envelope-video');
 // themselves; the toggle button still works normally to pause/resume it.
 const musicToggle = document.getElementById('music-toggle');
 const bgMusic = document.getElementById('bg-music');
-if (bgMusic) bgMusic.volume = 0.35; // kept low so it sits behind the page, not over it
+const MUSIC_VOLUME = 0.22; // kept low so it sits behind the page, not over it
+if (bgMusic) bgMusic.volume = 0;
+
+function fadeMusicIn() {
+  if (!bgMusic) return;
+  const steps = 24;
+  const intervalMs = 1800 / steps;
+  let step = 0;
+  const timer = setInterval(() => {
+    step++;
+    bgMusic.volume = Math.min(MUSIC_VOLUME, (MUSIC_VOLUME * step) / steps);
+    if (step >= steps) clearInterval(timer);
+  }, intervalMs);
+}
 
 function startBackgroundMusic() {
   if (!bgMusic || !musicToggle || musicToggle.getAttribute('aria-pressed') === 'true') return;
+  bgMusic.volume = 0;
   bgMusic
     .play()
-    .then(() => musicToggle.setAttribute('aria-pressed', 'true'))
+    .then(() => {
+      musicToggle.setAttribute('aria-pressed', 'true');
+      fadeMusicIn(); // eases in over ~1.8s instead of starting at full volume
+    })
     .catch(() => {
       // Autoplay blocked (rare, this soon after a tap) — the toggle button
       // stays available so the guest can just start it manually.
