@@ -666,6 +666,7 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   opacity: 0.85;
   margin: 0 auto 1.5rem;
   display: block;
+  animation: goldBreathe 5s ease-in-out infinite;
 }
 .closing__message {
   font-family: var(--font-script);
@@ -821,8 +822,17 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   opacity: 0.8;
   margin: 0 auto 1.8rem;
   display: block;
+  animation: goldBreathe 4s ease-in-out infinite;
 }
-.intro__divider--mid { margin: 2.4rem auto; opacity: 0.5; }
+.intro__divider--mid { margin: 2.4rem auto; animation: goldBreatheSoft 4s ease-in-out infinite; }
+@keyframes goldBreathe {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+@keyframes goldBreatheSoft {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(1.08); }
+}
 .intro__translation {
   padding-top: 0.2rem;
   opacity: 0.92;
@@ -874,8 +884,14 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   display: block;
   width: 70px;
   height: 1px;
-  background: var(--gold);
   margin: 1rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold) 25%, var(--gold-light) 50%, var(--gold) 75%, transparent);
+  background-size: 220% 100%;
+  animation: goldShimmer 4s ease-in-out infinite;
+}
+@keyframes goldShimmer {
+  0% { background-position: 130% 0; }
+  100% { background-position: -30% 0; }
 }
 
 .reveal {
@@ -1008,11 +1024,15 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   position: absolute;
   top: -60px;
   left: 50%;
-  transform: translateX(-50%);
   width: 220px;
   height: 220px;
   color: rgba(156, 107, 62, 0.15);
   fill: currentColor;
+  animation: wreathSway 9s ease-in-out infinite;
+}
+@keyframes wreathSway {
+  0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+  50% { transform: translateX(-50%) rotate(2deg); }
 }
 .footer__names {
   position: relative;
