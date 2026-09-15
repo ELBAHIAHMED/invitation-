@@ -154,6 +154,17 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   max-width: 100vw;
   aspect-ratio: unset;
 }
+/* The video is portrait (9:16-ish). Full-bleed at 100vw/100svh looks right on
+   a phone, but on a wide desktop window it forces object-fit:cover to scale
+   the video way up to cover the width, cropping almost everything except a
+   heavily zoomed-in sliver. Past phone-width viewports, cap it back to its
+   real aspect ratio and let it sit centered instead, like a portrait card. */
+@media (min-width: 640px) {
+  .envelope.has-video {
+    width: min(100vw, 56.37vh);
+    max-width: min(100vw, 56.37vh);
+  }
+}
 .envelope.has-video .envelope__vector { display: none; }
 .envelope.has-video .envelope__video {
   display: block;
