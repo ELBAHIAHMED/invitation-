@@ -101,7 +101,7 @@ body.no-scroll { overflow: hidden; height: 100vh; }
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: var(--ivory);
+  background: var(--champagne);
   perspective: 1400px;
   transition: opacity 0.8s ease 0.35s, visibility 0.8s ease 0.35s;
 }
@@ -113,14 +113,17 @@ body.no-scroll { overflow: hidden; height: 100vh; }
 
 /* Once the real video finishes, the gate stops being a fixed overlay and becomes
    the page's actual hero section — the video (frozen on its last frame) stays as
-   the background, with the wedding text fading in on top of it. */
+   the background, with the wedding text fading in on top of it. On wide screens
+   the video is letterboxed (see .envelope.has-video's media query above), so this
+   background shows on the sides -- matched to the video's own cream/champagne
+   tone (sampled from its edges) instead of a clashing dark bar. */
 .envelope-gate.has-video-mode { padding: 0; }
 .envelope-gate.is-video-hero {
   position: relative;
   inset: auto;
   min-height: 100svh;
   padding: 0;
-  background: var(--ink);
+  background: var(--champagne);
 }
 
 .envelope {
